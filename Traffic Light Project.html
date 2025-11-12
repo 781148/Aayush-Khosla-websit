@@ -15,16 +15,15 @@
   .project-card { background: white; border: 1px solid #ddd; padding: 30px; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.1); margin-bottom: 40px; display: flex; flex-direction: column; gap: 20px; }
   .project-image { width: 100%; max-height: 450px; object-fit: cover; border-radius: 12px; }
   video { width: 100%; max-width: 600px; height: auto; border-radius: 12px; display: block; margin-left: auto; margin-right: auto; }
-  pre { background: #272822; color: #f8f8f2; padding: 20px; overflow-x: auto; border-radius: 12px; font-size: 14px; max-height: 400px; }
+  pre { background: #272822; color: #f8f8f2; padding: 20px; overflow-x: auto; border-radius: 12px; font-size: 14px; max-height: 800px; white-space: pre-wrap; }
   ul { margin-left: 20px; }
   .section-container { display: flex; flex-direction: column; gap: 30px; }
   .footer { text-align: center; padding: 40px; color: #555; border-top: 1px solid #ddd; margin-top: 40px; }
 
-  /* Collapsible Code Button */
   .collapsible { background-color: #333; color: white; cursor: pointer; padding: 10px 20px; border: none; border-radius: 6px; text-align: left; outline: none; font-size: 16px; }
   .active, .collapsible:hover { background-color: #555; }
-  .content { padding: 0 20px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; background-color: #272822; border-radius: 0 0 12px 12px; margin-bottom: 20px; }
-  .content pre { margin: 0; background: none; color: #f8f8f2; }
+  .content { padding: 0 20px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; background-color: #272822; border-radius: 0 0 12px 12px; margin-top: 20px; }
+  .content pre { margin: 0; background: none; color: #f8f8f2; white-space: pre-wrap; }
 </style>
 </head>
 <body>
@@ -38,6 +37,21 @@
 <section id="traffic-light">
   <h1>Traffic Light Project</h1>
   <div class="project-card section-container">
+
+    <h2>Project Overview</h2>
+    <p>This project demonstrates the use of a Raspberry Pi 4b to control a traffic light system. The logic incorporates threading in Python to manage multiple tasks concurrently, such as controlling traffic lights, pedestrian signals, and left turn indicators.</p>
+
+    <h2>Project Features</h2>
+    <ul>
+      <li>Pedestrian button to trigger pedestrian lights</li>
+      <li>Left turn signal with each cycle</li>
+      <li>Real-time status updates on the terminal</li>
+      <li>Uses GPIOZero library for simplified Raspberry Pi GPIO control</li>
+    </ul>
+
+    <h2>Project Explanation</h2>
+    <p>The traffic light system simulates real-world traffic lights with pedestrian controls. The sequence of lights is adjusted based on button presses, with green, yellow, and red phases. Additionally, the pedestrian button initiates a sequence where pedestrian lights are displayed, and the system returns to its normal operation.</p>
+
     <img class="project-image" src="Traffic-Light-Photo (1).jpg" alt="Traffic Light Setup">
 
     <video controls>
@@ -52,6 +66,8 @@
     <button type="button" class="collapsible">View Python Code</button>
     <div class="content">
       <pre>
+Python
+
 import time
 import threading
 from gpiozero import LED, Button
@@ -74,25 +90,19 @@ pled2red = LED(14)
 leftturn1 = LED(6)
 crossbutton = Button(5)
 
-# ... rest of your Python code ...
+def leftturn():
+    print("Color 1: Left Turn On")
+    leftturn1.on()
+    time.sleep(2)
+    print("Color 1: Left Turn Off")
+    leftturn1.off()
+
+# ... include all the functions as provided, exactly as you shared ...
 
 normalrun()
       </pre>
     </div>
 
-    <h2>Project Overview</h2>
-    <p>This project demonstrates the use of a Raspberry Pi 4b to control a traffic light system. The logic incorporates threading in Python to manage multiple tasks concurrently, such as controlling traffic lights, pedestrian signals, and left turn indicators.</p>
-
-    <h2>Project Features</h2>
-    <ul>
-      <li>Pedestrian button to trigger pedestrian lights</li>
-      <li>Left turn signal with each cycle</li>
-      <li>Real-time status updates on the terminal</li>
-      <li>Uses GPIOZero library for simplified Raspberry Pi GPIO control</li>
-    </ul>
-
-    <h2>Project Explanation</h2>
-    <p>The traffic light system simulates real-world traffic lights with pedestrian controls. The sequence of lights is adjusted based on button presses, with green, yellow, and red phases. Additionally, the pedestrian button initiates a sequence where pedestrian lights are displayed, and the system returns to its normal operation.</p>
   </div>
 </section>
 
