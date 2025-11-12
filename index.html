@@ -8,41 +8,34 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      color: #222;
       background: #fafafa;
+      color: #222;
     }
 
     /* Navbar */
-    nav {
+    .navbar {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      background-color: #333;
+      padding: 14px 0;
       position: fixed;
       top: 0;
       width: 100%;
-      background: white;
-      border-bottom: 1px solid #ddd;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 32px;
       z-index: 100;
     }
 
-    nav .logo {
-      font-weight: bold;
-      font-size: 20px;
-    }
-
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 24px;
-      margin: 0;
-      padding: 0;
-    }
-
-    nav a {
+    .navbar a {
+      color: white;
       text-decoration: none;
-      color: #222;
-      font-size: 16px;
+      font-weight: bold;
+      padding: 8px 16px;
+      border-radius: 4px;
+      transition: background 0.3s;
+    }
+
+    .navbar a:hover {
+      background-color: #555;
     }
 
     /* Sections */
@@ -72,37 +65,18 @@
   </style>
 </head>
 <body>
-  <nav>
-    <div class="logo">Aayush</div>
-    <ul>
-      <li><a href="#home">Home</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#about">About Me</a></li>
-    </ul>
-  </nav>
 
+  <!-- Navbar -->
+  <div class="navbar">
+    <a href="index.html">Home</a>
+    <a href="projects.html">Projects</a>
+    <a href="about.html">About Me</a>
+  </div>
+
+  <!-- Home Section -->
   <section id="home">
-    <h1>Welcome</h1>
-    <p>I'm Aayush, a student building my skills and showcasing projects I'm proud of. This portfolio keeps everything clean and easy to browse.</p>
-  </section>
-
-  <section id="projects">
-    <h2>Projects</h2>
-
-    <div class="project-card">
-      <h3>Project 1</h3>
-      <p>Description of your project. You can replace this with links, images, or code snippets.</p>
-    </div>
-
-    <div class="project-card">
-      <h3>Project 2</h3>
-      <p>Another project summary. Keep these short and job-friendly.</p>
-    </div>
-  </section>
-
-  <section id="about">
-    <h2>About Me</h2>
-    <p>Hi, I'm Aayush. I'm a student and athlete who loves creating, learning, and building real-world skills. This page will grow as I do.</p>
+    <h1>Aayush</h1>
+    <p>Welcome! I'm Aayush, a student building skills and creating projects. Browse around to see what I've made.</p>
   </section>
 
   <div class="footer">© 2025 Aayush</div>
