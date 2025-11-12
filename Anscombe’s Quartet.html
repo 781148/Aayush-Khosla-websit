@@ -1,48 +1,150 @@
-<section id="anscombe">
-  <h1>Visualizing Anscombe’s Quartet</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aayush | Projects</title>
+<style>
+  body { margin: 0; font-family: "Georgia", serif; background: #f0f2f5; color: #222; line-height: 1.6; }
+  .navbar { display: flex; justify-content: flex-start; gap: 32px; background-color: #333; padding: 14px 32px; position: fixed; top: 0; width: 100%; z-index: 100; }
+  .navbar a { color: white; text-decoration: none; font-weight: bold; padding: 8px 16px; border-radius: 4px; transition: background 0.3s; }
+  .navbar a:hover { background-color: #555; color: white; }
+  section { padding: 120px 32px 80px; max-width: 1000px; margin: auto; }
+  h1 { margin-bottom: 20px; text-align: center; color: #333; }
+  h2 { margin-top: 30px; margin-bottom: 10px; color: #444; }
+  .project-card { background: white; border: 1px solid #ddd; padding: 30px; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.1); margin-bottom: 40px; display: flex; flex-direction: column; gap: 20px; }
+  .project-image { width: 100%; max-height: 450px; object-fit: cover; border-radius: 12px; }
+  pre { background: #272822; color: #f8f8f2; padding: 20px; overflow-x: auto; border-radius: 12px; font-size: 14px; max-height: 800px; white-space: pre-wrap; }
+  ul { margin-left: 20px; }
+  .footer { text-align: center; padding: 40px; color: #555; border-top: 1px solid #ddd; margin-top: 40px; }
+
+  .collapsible { background-color: #333; color: white; cursor: pointer; padding: 10px 20px; border: none; border-radius: 6px; text-align: left; outline: none; font-size: 16px; }
+  .active, .collapsible:hover { background-color: #555; }
+  .content { padding: 0 20px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; background-color: #272822; border-radius: 0 0 12px 12px; margin-top: 20px; }
+  .content pre { margin: 0; background: none; color: #f8f8f2; white-space: pre-wrap; }
+
+  /* Tufte-style Anscombe section */
+  .tufte-section { font-family: "Georgia", serif; max-width: 850px; margin: auto; }
+  .tufte-section img { width: 100%; display: block; margin-bottom: 5px; border-radius:12px; }
+  .tufte-caption { font-size: 0.85em; color: #555; margin-bottom: 20px; }
+  .tufte-note { float: right; width: 180px; font-size: 0.8em; margin-left: 20px; color: #555; font-style: italic; }
+  .tufte-clearfix::after { content: ""; clear: both; display: table; }
+
+  .anscombe-images { display:flex; flex-direction: column; gap:30px; }
+</style>
+</head>
+<body>
+
+<div class="navbar">
+  <a href="index.html">Home</a>
+  <a href="projects.html">Projects</a>
+  <a href="about.html">About Me</a>
+</div>
+
+<section id="traffic-light">
+  <h1>Traffic Light Project</h1>
   <div class="project-card section-container">
 
     <h2>Project Overview</h2>
-    <p>This project demonstrates exploratory data analysis (EDA) on Anscombe’s Quartet using Python. It highlights why visual inspection is essential even when summary statistics are nearly identical.</p>
+    <p>This project demonstrates the use of a Raspberry Pi 4b to control a traffic light system. Threading in Python is used to manage multiple tasks concurrently.</p>
 
     <h2>Project Features</h2>
     <ul>
-      <li>Scatter plots with regression lines for all datasets</li>
-      <li>Residual plots</li>
-      <li>Box and violin plots for distributions</li>
-      <li>Interactive versions (Plotly / Altair)</li>
+      <li>Pedestrian button to trigger pedestrian lights</li>
+      <li>Left turn signal with each cycle</li>
+      <li>Real-time terminal updates</li>
+      <li>GPIOZero library for Raspberry Pi</li>
     </ul>
 
-    <h2>Project Visualizations</h2>
+    <h2>Project Explanation</h2>
+    <p>Simulates real-world traffic lights with pedestrian controls. Green, yellow, and red phases adjust based on button presses.</p>
 
-    <div style="display:flex; flex-wrap:wrap; gap:20px; justify-content:center;">
-      <div style="flex:1 1 400px;">
-        <img src="Screenshot 2025-11-12 124310.png" alt="Scatter plot dataset I" style="width:100%; border-radius:12px;"/>
-        <p style="text-align:center;">Scatter plot of Dataset I with regression line</p>
-      </div>
-      <div style="flex:1 1 400px;">
-        <img src="Screenshot 2025-11-12 124428.png" alt="Scatter plot dataset II" style="width:100%; border-radius:12px;"/>
-        <p style="text-align:center;">Scatter plot of Dataset II with regression line</p>
-      </div>
-      <div style="flex:1 1 400px;">
-        <img src="Screenshot 2025-11-12 124433.png" alt="Scatter plot dataset III" style="width:100%; border-radius:12px;"/>
-        <p style="text-align:center;">Scatter plot of Dataset III with regression line</p>
-      </div>
-      <div style="flex:1 1 400px;">
-        <img src="Screenshot 2025-11-12 124441.png" alt="Scatter plot dataset IV" style="width:100%; border-radius:12px;"/>
-        <p style="text-align:center;">Scatter plot of Dataset IV with regression line</p>
-      </div>
-      <div style="flex:1 1 400px;">
-        <img src="Screenshot 2025-11-12 124448.png" alt="Box and violin plots" style="width:100%; border-radius:12px;"/>
-        <p style="text-align:center;">Boxplots and violin plots of X and Y distributions</p>
-      </div>
+    <img class="project-image" src="Traffic-Light-Photo (1).jpg" alt="Traffic Light Setup">
+
+    <video controls>
+      <source src="videostraffic_breadboard (1).mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <video controls>
+      <source src="Traffic-Light-Working (1).mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+
+    <button type="button" class="collapsible">View Python Code</button>
+    <div class="content">
+      <pre>
+Python
+# Paste your full Traffic Light Python code here
+...
+normalrun()
+      </pre>
     </div>
-
-    <h2>Code & Reproducibility</h2>
-    <p>See the full Python notebook <a href="anscombe_eda.ipynb">here</a> or run <code>anscombe_eda.py</code> to regenerate all figures.</p>
-
-    <h2>Conclusion</h2>
-    <p>Although the datasets share similar summary statistics, their visualizations reveal very different patterns, demonstrating the importance of graphical EDA.</p>
 
   </div>
 </section>
+
+<section id="anscombe">
+  <h1>Visualizing Anscombe’s Quartet (Tufte-Style)</h1>
+  <div class="project-card tufte-section">
+
+    <h2>Project Overview</h2>
+    <p>Exploratory Data Analysis on Anscombe’s Quartet to show why visualization is critical even with identical summary statistics.</p>
+
+    <div class="tufte-clearfix">
+      <div class="tufte-note">Figure 1: Dataset I</div>
+      <img src="Screenshot 2025-11-12 124310.png" alt="Dataset I">
+      <div class="tufte-caption">Scatter plot with regression line</div>
+    </div>
+
+    <div class="tufte-clearfix">
+      <div class="tufte-note">Figure 2: Dataset II</div>
+      <img src="Screenshot 2025-11-12 124428.png" alt="Dataset II">
+      <div class="tufte-caption">Scatter plot with regression line</div>
+    </div>
+
+    <div class="tufte-clearfix">
+      <div class="tufte-note">Figure 3: Dataset III</div>
+      <img src="Screenshot 2025-11-12 124433.png" alt="Dataset III">
+      <div class="tufte-caption">Scatter plot with regression line</div>
+    </div>
+
+    <div class="tufte-clearfix">
+      <div class="tufte-note">Figure 4: Dataset IV</div>
+      <img src="Screenshot 2025-11-12 124441.png" alt="Dataset IV">
+      <div class="tufte-caption">Scatter plot with regression line</div>
+    </div>
+
+    <div class="tufte-clearfix">
+      <div class="tufte-note">Figure 5</div>
+      <img src="Screenshot 2025-11-12 124448.png" alt="Box and violin plots">
+      <div class="tufte-caption">Boxplots and violin plots of X and Y distributions</div>
+    </div>
+
+    <h2>Code & Reproducibility</h2>
+    <p>Full notebook: <a href="anscombe_eda.ipynb">anscombe_eda.ipynb</a>. Python script: <code>anscombe_eda.py</code>.</p>
+
+    <h2>Conclusion</h2>
+    <p>Even with nearly identical summary statistics, the datasets reveal very different patterns visually—highlighting the importance of graphical EDA.</p>
+
+  </div>
+</section>
+
+<div class="footer">© 2025 Aayush</div>
+
+<script>
+  const coll = document.getElementsByClassName("collapsible");
+  for (let i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function() {
+      this.classList.toggle("active");
+      const content = this.nextElementSibling;
+      if (content.style.maxHeight){
+        content.style.maxHeight = null;
+      } else {
+        content.style.maxHeight = content.scrollHeight + "px";
+      } 
+    });
+  }
+</script>
+
+</body>
+</html>
