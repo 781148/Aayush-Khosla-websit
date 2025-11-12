@@ -1,1 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visualizing Anscombe’s Quartet — Report</title>
+<style>
+  body {
+    font-family: "Georgia", serif;
+    background: #fdfdfd;
+    color: #222;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+  }
+  header {
+    background: #f7f7f7;
+    text-align: center;
+    padding: 40px 20px 20px;
+    border-bottom: 1px solid #ddd;
+  }
+  header h1 {
+    margin: 0;
+    font-size: 2.4em;
+  }
+  header p {
+    font-size: 1.1em;
+    color: #555;
+  }
+  main {
+    max-width: 900px;
+    margin: auto;
+    padding: 40px 20px 60px;
+  }
+  h2 {
+    border-left: 4px solid #444;
+    padding-left: 10px;
+    margin-top: 40px;
+    color: #333;
+  }
+  pre, code {
+    background: #f4f4f4;
+    color: #111;
+    border-radius: 6px;
+    padding: 10px;
+    display: block;
+    overflow-x: auto;
+    font-family: "Consolas", monospace;
+  }
+  img {
+    width: 100%;
+    border-radius: 10px;
+    margin: 20px 0;
+  }
+  .link {
+    color: #0056b3;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  .link:hover {
+    text-decoration: underline;
+  }
+  footer {
+    text-align: center;
+    padding: 40px;
+    background: #f2f2f2;
+    color: #666;
+    font-size: 0.9em;
+    margin-top: 60px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Visualizing Anscombe’s Quartet</h1>
+  <p><strong>Author:</strong> Aayush | <strong>Date:</strong> October 4, 2025</p>
+  <p>Exploratory Data Analysis using Python, Matplotlib, and Seaborn</p>
+</header>
+
+<main>
+  <h2>Abstract</h2>
+  <p>Anscombe’s quartet consists of four datasets that have nearly identical summary statistics but drastically different distributions when visualized. This project demonstrates why visualization is essential in exploratory data analysis (EDA) by comparing summary statistics and graphical interpretations for all four datasets.</p>
+
+  <h2>Introduction</h2>
+  <p>EDA helps uncover underlying data patterns that simple summary statistics often hide. Anscombe’s quartet, created by statistician Francis Anscombe, highlights how numerical summaries can be misleading without visualization. Each dataset has the same means, variances, correlations, and regression lines, yet their scatterplots reveal unique relationships.</p>
+
+  <h2>Data</h2>
+  <p>The data used is a standard version of Anscombe’s quartet, stored in <code>anscombe.csv</code>. It contains four groups (I–IV), each with paired <code>x</code> and <code>y</code> values.</p>
+
+  <table border="1" cellpadding="6" cellspacing="0" style="border-collapse:collapse;margin:auto;text-align:center;">
+    <tr><th>x</th><th>y1</th><th>y2</th><th>y3</th><th>y4</th></tr>
+    <tr><td>10</td><td>8.04</td><td>9.14</td><td>7.46</td><td>6.58</td></tr>
+    <tr><td>8</td><td>6.95</td><td>8.14</td><td>6.77</td><td>5.76</td></tr>
+    <tr><td>13</td><td>7.58</td><td>8.74</td><td>12.74</td><td>7.71</td></tr>
+  </table>
+
+  <h2>Methods</h2>
+  <p>We computed descriptive statistics (mean, variance, standard deviation, covariance, correlation, regression coefficients, and R²) for each dataset. Visualizations include scatterplots with regression lines, residual plots, and box/violin plots using <code>matplotlib</code> and <code>seaborn</code>.</p>
+
+  <h2>Summary Statistics</h2>
+  <p>The datasets share almost identical summary statistics, reinforcing the need for visual EDA.</p>
+  <img src="output/summary_table.png" alt="Summary statistics table">
+
+  <h2>Visualizations</h2>
+  <img src="output/anscombe_faceted.png" alt="Faceted Scatterplots with Regression Lines">
+  <img src="output/boxplots_xy.png" alt="Boxplots of X and Y Distributions">
+
+  <p><a href="output/anscombe_plotly.html" class="link" target="_blank">🔗 View Interactive Plotly Visualization</a></p>
+
+  <h2>Interpretation</h2>
+  <p>Although the four datasets in Anscombe’s quartet share nearly identical statistics, their scatterplots reveal very different relationships — linear, non-linear, and outlier-driven patterns. This demonstrates how visual inspection is crucial in data analysis.</p>
+
+  <h2>Reproducibility & Code</h2>
+  <p>The following Python script reproduces all analyses and figures.</p>
+  <pre><code>
+# anscombe_eda.py
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import statsmodels.api as sm
+
+df = pd.read_csv("anscombe.csv")
+
+def summary_stats(g):
+    n = g.shape[0]
+    mean_x = g['x'].mean()
+    mean_y = g['y'].mean()
+    var_x = g['x'].var(ddof=1)
+    var_y = g['y'].var(ddof=1)
+    std_x = g['x'].std(ddof=1)
+    std_y = g['y'].std(ddof=1)
+    cov = g[['x','y']].cov().iloc[0,1]
+    corr = g['x'].corr(g['y'])
+    X = sm.add_constant(g['x'])
+    model = sm.OLS(g['y'], X).fit()
+    slope = model.params['x']
+    intercept = model.params['const']
+    r2 = model.rsquared
+    return pd.Series({'mean_x':mean_x, 'mean_y':mean_y, 'r':corr, 'slope':slope, 'r2':r2})
+
+summary = df.groupby('dataset').apply(summary_stats)
+summary.to_csv("output/summary_table.csv")
+
+sns.lmplot(data=df, x='x', y='y', col='dataset', col_wrap=2, height=4)
+plt.savefig("output/anscombe_faceted.png")
+  </code></pre>
+
+  <h2>GitHub Links</h2>
+  <p>📄 <a href="anscombe_report.pdf" class="link" target="_blank">Download Full Report (PDF)</a></p>
+  <p>💻 <a href="https://github.com/yourhandle/anscombe-eda-aayush" class="link" target="_blank">View GitHub Repository</a></p>
+
+  <h2>Conclusion</h2>
+  <p>This project demonstrates that statistics alone can be deceiving. Visual exploration remains an irreplaceable part of EDA, ensuring that data interpretation aligns with reality rather than misleading summaries.</p>
+
+</main>
+
+<footer>© 2025 Aayush | Visualizing Anscombe’s Quartet</footer>
+</body>
+</html>
 
