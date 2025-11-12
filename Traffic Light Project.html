@@ -5,17 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Traffic Light Project | Aayush</title>
 <style>
-  body { margin: 0; font-family: Arial, sans-serif; background: #fafafa; color: #222; }
+  body { margin: 0; font-family: Arial, sans-serif; background: #f0f2f5; color: #222; line-height: 1.6; }
   .navbar { display: flex; justify-content: flex-start; gap: 32px; background-color: #333; padding: 14px 32px; position: fixed; top: 0; width: 100%; z-index: 100; }
   .navbar a { color: white; text-decoration: none; font-weight: bold; padding: 8px 16px; border-radius: 4px; transition: background 0.3s; }
   .navbar a:hover { background-color: #555; color: white; }
   section { padding: 120px 32px 80px; max-width: 1000px; margin: auto; }
-  h1, h2 { margin-bottom: 12px; }
-  .project-card { background: white; border: 1px solid #ddd; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin-bottom: 20px; }
-  img { max-width: 100%; height: auto; margin-bottom: 20px; border-radius: 8px; }
-  video { width: 100%; height: auto; margin-bottom: 20px; border-radius: 8px; }
-  pre { background: #f4f4f4; padding: 15px; overflow-x: auto; border-radius: 8px; }
-  .footer { text-align: center; padding: 40px; color: #555; }
+  h1 { margin-bottom: 20px; text-align: center; color: #333; }
+  h2 { margin-top: 30px; margin-bottom: 10px; color: #444; }
+  .project-card { background: white; border: 1px solid #ddd; padding: 30px; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.1); margin-bottom: 40px; }
+  img { max-width: 100%; height: auto; margin-bottom: 20px; border-radius: 12px; display: block; margin-left: auto; margin-right: auto; }
+  video { width: 100%; max-width: 600px; height: auto; margin-bottom: 20px; border-radius: 12px; display: block; margin-left: auto; margin-right: auto; }
+  pre { background: #272822; color: #f8f8f2; padding: 20px; overflow-x: auto; border-radius: 12px; font-size: 14px; max-height: 400px; }
+  ul { margin-left: 20px; }
+  .footer { text-align: center; padding: 40px; color: #555; border-top: 1px solid #ddd; margin-top: 40px; }
 </style>
 </head>
 <body>
@@ -30,6 +32,7 @@
   <h1>Traffic Light Project</h1>
   <div class="project-card">
     <img src="Traffic-Light-Photo (1).jpg" alt="Traffic Light Setup">
+
     <video controls>
       <source src="videostraffic_breadboard (1).mp4" type="video/mp4">
       Your browser does not support the video tag.
@@ -38,6 +41,7 @@
       <source src="Traffic-Light-Working (1).mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
+
     <h2>Python Code</h2>
     <pre>
 import time
@@ -46,17 +50,20 @@ from gpiozero import LED, Button
 
 # ... rest of your Python code ...
     </pre>
+
     <h2>Project Overview</h2>
-    <p>Welcome to the Traffic Light project page! This project demonstrates the use of a Raspberry Pi 4b to control a traffic light system. The logic incorporates threading in Python to manage multiple tasks concurrently, such as controlling traffic lights, pedestrian signals, and left turn indicators.</p>
+    <p>This project demonstrates the use of a Raspberry Pi 4b to control a traffic light system. The logic incorporates threading in Python to manage multiple tasks concurrently, such as controlling traffic lights, pedestrian signals, and left turn indicators.</p>
+
     <h2>Project Features</h2>
     <ul>
-      <li>Pedestrian button to trigger pedestrian lights.</li>
-      <li>Left turn signal with each cycle.</li>
-      <li>Real-time status updates on the terminal.</li>
-      <li>Uses GPIOZero library for simplified Raspberry Pi GPIO control.</li>
+      <li>Pedestrian button to trigger pedestrian lights</li>
+      <li>Left turn signal with each cycle</li>
+      <li>Real-time status updates on the terminal</li>
+      <li>Uses GPIOZero library for simplified Raspberry Pi GPIO control</li>
     </ul>
+
     <h2>Project Explanation</h2>
-    <p>This traffic light system simulates real-world traffic lights with pedestrian controls. The sequence of lights is adjusted based on button presses, with green, yellow, and red phases. Additionally, the pedestrian button initiates a sequence where pedestrian lights are displayed, and the system returns to its normal operation.</p>
+    <p>The traffic light system simulates real-world traffic lights with pedestrian controls. The sequence of lights is adjusted based on button presses, with green, yellow, and red phases. Additionally, the pedestrian button initiates a sequence where pedestrian lights are displayed, and the system returns to its normal operation.</p>
   </div>
 </section>
 
