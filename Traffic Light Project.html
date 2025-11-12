@@ -19,6 +19,12 @@
   ul { margin-left: 20px; }
   .section-container { display: flex; flex-direction: column; gap: 30px; }
   .footer { text-align: center; padding: 40px; color: #555; border-top: 1px solid #ddd; margin-top: 40px; }
+
+  /* Collapsible Code Button */
+  .collapsible { background-color: #333; color: white; cursor: pointer; padding: 10px 20px; border: none; border-radius: 6px; text-align: left; outline: none; font-size: 16px; }
+  .active, .collapsible:hover { background-color: #555; }
+  .content { padding: 0 20px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; background-color: #272822; border-radius: 0 0 12px 12px; margin-bottom: 20px; }
+  .content pre { margin: 0; background: none; color: #f8f8f2; }
 </style>
 </head>
 <body>
@@ -43,14 +49,36 @@
       Your browser does not support the video tag.
     </video>
 
-    <h2>Python Code</h2>
-    <pre>
+    <button type="button" class="collapsible">View Python Code</button>
+    <div class="content">
+      <pre>
 import time
 import threading
 from gpiozero import LED, Button
 
+input_received = threading.Event()
+pedestrian_active = threading.Event()
+normal_run_pause = threading.Event()
+leftturndone = threading.Event()
+
+led = LED(17)
+gled = LED(27)
+yled = LED(22)
+rled = LED(23)
+gled2 = LED(24)
+yled2 = LED(25)
+pled1 = LED(16)
+pled1red = LED(26)
+pled2 = LED(15)
+pled2red = LED(14)
+leftturn1 = LED(6)
+crossbutton = Button(5)
+
 # ... rest of your Python code ...
-    </pre>
+
+normalrun()
+      </pre>
+    </div>
 
     <h2>Project Overview</h2>
     <p>This project demonstrates the use of a Raspberry Pi 4b to control a traffic light system. The logic incorporates threading in Python to manage multiple tasks concurrently, such as controlling traffic lights, pedestrian signals, and left turn indicators.</p>
@@ -69,5 +97,21 @@ from gpiozero import LED, Button
 </section>
 
 <div class="footer">© 2025 Aayush</div>
+
+<script>
+  const coll = document.getElementsByClassName("collapsible");
+  for (let i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function() {
+      this.classList.toggle("active");
+      const content = this.nextElementSibling;
+      if (content.style.maxHeight){
+        content.style.maxHeight = null;
+      } else {
+        content.style.maxHeight = content.scrollHeight + "px";
+      } 
+    });
+  }
+</script>
+
 </body>
 </html>
