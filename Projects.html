@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aayush | Projects</title>
+<style>
+  body { margin: 0; font-family: Arial, sans-serif; background: #fafafa; color: #222; }
+  .navbar { display: flex; justify-content: flex-start; gap: 32px; background-color: #333; padding: 14px 32px; position: fixed; top: 0; width: 100%; z-index: 100; }
+  .navbar a { color: white; text-decoration: none; font-weight: bold; padding: 8px 16px; border-radius: 4px; transition: background 0.3s; }
+  .navbar a:hover { background-color: #555; color: white; }
+  section { padding: 120px 32px 80px; max-width: 1000px; margin: auto; }
+  h1, h2 { margin-bottom: 12px; }
+  .projects-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-top: 20px; }
+  .project-card { background: white; border: 1px solid #ddd; padding: 20px; border-radius: 8px; transition: transform 0.3s, box-shadow 0.3s; }
+  .project-card:hover { transform: translateY(-5px); box-shadow: 0 8px 16px rgba(0,0,0,0.2); }
+  .project-card a { color: #333; text-decoration: none; font-weight: bold; }
+  .footer { text-align: center; padding: 40px; color: #555; }
+</style>
+</head>
+<body>
+
+<div class="navbar">
+  <a href="index.html">Home</a>
+  <a href="projects.html">Projects</a>
+  <a href="about.html">About Me</a>
+</div>
+
+<section id="projects">
+  <h1>Projects</h1>
+  <div class="projects-container">
+    <div class="project-card">
+      <h2>Project 1</h2>
+      <p>Short description of Project 1. <a href="#">GitHub Link</a></p>
+    </div>
+    <div class="project-card">
+      <h2>Project 2</h2>
+      <p>Short description of Project 2. <a href="#">GitHub Link</a></p>
+    </div>
+  </div>
+</section>
+
+<div class="footer">© 2025 Aayush</div>
+</body>
+</html>
