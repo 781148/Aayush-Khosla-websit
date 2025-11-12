@@ -1,85 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aayush | Portfolio</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #fafafa;
-      color: #222;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aayush | Home</title>
+<style>
+  body { margin: 0; font-family: Arial, sans-serif; background: #fafafa; color: #222; }
+  .navbar {
+    display: flex;
+    justify-content: flex-start;
+    gap: 32px;
+    background-color: #333;
+    padding: 14px 32px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+  }
+  .navbar a {
+    color: white; 
+    text-decoration: none; 
+    font-weight: bold; 
+    padding: 8px 16px; 
+    border-radius: 4px; 
+    transition: background 0.3s;
+  }
+  .navbar a:hover {
+    background-color: #555;
+  }
 
-    /* Navbar */
-    .navbar {
-      display: flex;
-      justify-content: flex-start; /* aligned to left */
-      gap: 32px;
-      background-color: #333;
-      padding: 14px 32px;
-      position: fixed;
-      top: 0;
-      width: 100%;
-      z-index: 100;
-    }
+  section {
+    padding: 120px 32px 80px;
+    max-width: 900px;
+    margin: auto;
+  }
 
-    .navbar a {
-      color: white; /* text color */
-      text-decoration: none;
-      font-weight: bold;
-      padding: 8px 16px;
-      border-radius: 4px;
-      transition: background 0.3s, color 0.3s;
-    }
+  .hero {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+  .hero h1 {
+    font-size: 42px;
+    margin-bottom: 12px;
+  }
+  .hero p {
+    font-size: 18px;
+    color: #444;
+  }
 
-    .navbar a:hover {
-      background-color: #555;
-      color: white; /* maintain same color on hover */
-    }
+  .home-card {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin-top: 40px;
+  }
 
-    /* Sections */
-    section {
-      padding: 120px 32px 80px;
-      max-width: 900px;
-      margin: auto;
-    }
-
-    h1, h2 {
-      margin-bottom: 12px;
-    }
-
-    .project-card {
-      background: white;
-      border: 1px solid #ddd;
-      padding: 20px;
-      margin-top: 16px;
-      border-radius: 8px;
-    }
-
-    .footer {
-      text-align: center;
-      padding: 40px;
-      color: #555;
-    }
-  </style>
+  .footer {
+    text-align: center;
+    padding: 40px;
+    color: #555;
+  }
+</style>
 </head>
 <body>
 
-  <!-- Navbar -->
-  <div class="navbar">
-    <a href="index.html">Home</a>
-    <a href="projects.html">Projects</a>
-    <a href="about.html">About Me</a>
+<!-- NAVBAR -->
+<div class="navbar">
+  <a href="index.html">Home</a>
+  <a href="projects.html">Projects</a>
+  <a href="about.html">About Me</a>
+</div>
+
+<!-- MAIN CONTENT -->
+<section id="home">
+  
+  <!-- HERO SECTION -->
+  <div class="hero">
+    <h1>Hey, I'm Aayush</h1>
+    <p>Student • Athlete • Developer in progress</p>
   </div>
 
-  <!-- Home Section -->
-  <section id="home">
-    <h1>Aayush</h1>
-    <p>Welcome! I'm Aayush, a student building skills and creating projects. Browse around to see what I've made.</p>
-  </section>
+  <!-- INTRO CARD -->
+  <div class="home-card">
+    <h2>What I Do</h2>
+    <p>
+      I'm a high school student who enjoys coding, learning new tech, 
+      and building small projects to improve my skills. I mainly use this
+      website as a place to show my work, track my progress, and
+      learn how to build professional portfolio sites.
+    </p>
 
-  <div class="footer">© 2025 Aayush</div>
+    <h2>What You’ll Find Here</h2>
+    <ul>
+      <li>My personal projects</li>
+      <li>My background and interests</li>
+      <li>Links to GitHub, upcoming work, and school-related builds</li>
+    </ul>
+
+    <h2>What I'm Working On Right Now</h2>
+    <p>
+      I'm slowly building up my programming foundation and adding new
+      projects as I go. This site will keep getting updated as I learn more.
+    </p>
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+<div class="footer">© 2025 Aayush</div>
+
 </body>
 </html>
