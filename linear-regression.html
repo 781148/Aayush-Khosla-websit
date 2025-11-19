@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aayush | Linear Regression Blog</title>
+<style>
+  body { margin: 0; font-family: Arial, sans-serif; background: #fafafa; color: #222; }
+  .navbar { display: flex; justify-content: flex-start; gap: 32px; background-color: #333; padding: 14px 32px; position: fixed; top: 0; width: 100%; z-index: 100; }
+  .navbar a { color: white; text-decoration: none; font-weight: bold; padding: 8px 16px; border-radius: 4px; transition: background 0.3s; }
+  .navbar a:hover { background-color: #555; color: white; }
+
+  section { padding: 120px 32px 80px; max-width: 900px; margin: auto; }
+  h1, h2, h3 { margin-bottom: 12px; }
+  p { line-height: 1.6; }
+
+  pre {
+    background: #eee;
+    padding: 16px;
+    overflow-x: auto;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+  <a href="index.html">Home</a>
+  <a href="projects.html">Projects</a>
+  <a href="about.html">About Me</a>
+</div>
+
+<section>
+  <h1>Understanding Linear Regression in Python</h1>
+  <p>
+    This blog breaks down a linear regression tutorial I worked through using Python.
+    I’ll explain the concepts, show the code, and answer key questions from the notebook.
+  </p>
+
+  <h2>What is Linear Regression?</h2>
+  <p>
+    Linear regression is basically the strategy of finding the best-fit straight line through a set of data points.  
+    It helps predict one variable (y) based on another (x).  
+    The equation looks like:
+  </p>
+
+  <pre><code>y = m * x + b</code></pre>
+
+  <p>
+    where <b>m</b> is the slope and <b>b</b> is the intercept.
+  </p>
+
+  <h2>Loading the Data</h2>
+  <pre><code>import numpy as np
+import matplotlib.pyplot as plt
+
+# Given dataset
+x = np.array([0.5, 1.0, 2.5, 4.0, 6.0])
+y = np.array([1.4, 1.9, 3.2, 3.8, 4.5])
+</code></pre>
+
+  <h2>Plotting the Scatter Plot</h2>
+  <pre><code>plt.scatter(x, y)
+plt.xlabel("x")
+plt.ylabel("y")
+plt.title("Scatter Plot of Data")
+plt.show()
+</code></pre>
+
+  <h2>Fitting the Best-Fit Line</h2>
+  <pre><code>m, b = np.polyfit(x, y, 1)
+print(m, b)
+
+plt.scatter(x, y)
+plt.plot(x, m*x + b)
+plt.show()
+</code></pre>
+
+  <h2>Computing Residuals</h2>
+  <pre><code>residuals = y - (m*x + b)
+print(residuals)
+</code></pre>
+
+  <h2>Total Least Squares Regression</h2>
+  <p>
+    TLS considers errors in both x and y — not just y.  
+    It uses SVD to find the best line.
+  </p>
+
+  <pre><code>X = np.vstack((x, y)).T
+mean = np.mean(X, axis=0)
+U, S, Vt = np.linalg.svd(X - mean)
+direction = Vt[0]
+</code></pre>
+
+  <h2>Questions From the Notebook (With Answers)</h2>
+
+  <h3>1. Is the relationship between x and y linear?</h3>
+  <p>
+    Yes. The scatter plot showed a clear straight-line trend — nothing curved or weird.
+  </p>
+
+  <h3>2. What does the slope mean?</h3>
+  <p>
+    The slope tells you how much y increases for every 1 unit increase in x.  
+    A positive slope means y goes up as x goes up.
+  </p>
+
+  <h3>3. What do the residuals tell you?</h3>
+  <p>
+    They show how far off each predicted value is from the actual value.  
+    Small residuals mean the model is accurate.
+  </p>
+
+  <h3>4. When would total least squares be better?</h3>
+  <p>
+    TLS is better when both x and y have measurement errors.  
+    Regular regression only accounts for y errors, so TLS can give a cleaner, more realistic fit in noisy datasets.
+  </p>
+
+  <h2>Final Thoughts</h2>
+  <p>
+    Linear regression is simple but useful.  
+    Once you're comfortable plotting, fitting, and analyzing residuals, you're basically set for most beginner-level machine learning tasks.
+  </p>
+</section>
+
+<div class="footer">© 2025 Aayush</div>
+</body>
+</html>
