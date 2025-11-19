@@ -35,39 +35,85 @@
 <section>
   <h1>Linear Regression Tutorial</h1>
   <p>
-    I worked through this linear regression tutorial using Python. Below are my notes and answers to the questions in the notebook.
+    In this post, I worked through a Python linear regression tutorial and recorded my notes along with answers to the questions from the notebook.
   </p>
 
-  <h2>Key Questions from the Notebook</h2>
+  <h2>Introduction</h2>
+  <p>
+    Linear regression is a method to fit a straight line to a dataset and predict one variable from another.  
+    In this tutorial, I explored ordinary least squares regression, residuals, and total least squares regression.
+  </p>
+
+  <h2>Loading the Data</h2>
+  <pre><code>import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Read the dataset
+anscombe_i = pd.read_csv('anscombe_i.csv')
+anscombe_i.head()</code></pre>
+
+  <h2>Plotting the Data</h2>
+  <pre><code>plt.scatter(anscombe_i.x, anscombe_i.y, color='black')
+plt.xlabel("X")
+plt.ylabel("Y")
+plt.title("Scatter Plot of Dataset")
+plt.show()</code></pre>
+
+  <h2>Fitting a Linear Regression Line</h2>
+  <pre><code>from sklearn.linear_model import LinearRegression
+
+X = anscombe_i.x.values.reshape(-1,1)
+y = anscombe_i.y.values.reshape(-1,1)
+
+model = LinearRegression()
+model.fit(X, y)
+
+print("Slope (m):", model.coef_[0])
+print("Intercept (b):", model.intercept_)
+
+plt.scatter(X, y, color='black')
+plt.plot(X, model.predict(X), color='green')
+plt.show()</code></pre>
+
+  <h2>Residuals</h2>
+  <pre><code>residuals = y - model.predict(X)
+plt.scatter(X, residuals)
+plt.xlabel("X")
+plt.ylabel("Residuals")
+plt.title("Residual Plot")
+plt.show()</code></pre>
+
+  <h2>Notes & Answers</h2>
 
   <h3>1. What is `m` in y = mx + b?</h3>
   <p>
-    `m` is the coefficient or slope of the line. It tells us how much y changes for a unit change in x.
+    `m` is the slope of the line, showing how much y changes for a unit change in x.
   </p>
 
   <h3>2. What is the R squared?</h3>
   <p>
-    R squared measures how well the regression line fits the data. A value closer to 1 means the line explains most of the variance in y.
+    R squared shows how well the line fits the data. Closer to 1 means the line explains most of the variance in y.
   </p>
 
   <h3>3. What is the Adj. R squared?</h3>
   <p>
-    Adjusted R squared accounts for the number of predictors in the model. It adjusts the R squared value so it doesn’t artificially increase when more variables are added.
+    Adjusted R squared accounts for number of predictors and prevents artificial inflation when more variables are added.
   </p>
 
   <h3>4. What is the P value?</h3>
   <p>
-    The P value tells us whether the slope of the line is statistically significant. A small P value (typically ≤ 0.05) means the slope is significantly different from zero.
+    P value tells if the slope is statistically significant. A small value (≤ 0.05) means the slope is meaningful.
   </p>
 
   <h3>5. What are the 95% confidence intervals?</h3>
   <p>
-    The 95% confidence intervals give the range in which the true slope and intercept values are expected to fall 95% of the time.
+    The 95% confidence intervals give a range where the true slope and intercept are expected to fall 95% of the time.
   </p>
 
   <h2>View the Full Notebook</h2>
   <p>
-    You can see the full Python notebook on GitHub here: 
+    You can check out the full Python notebook here: 
     <a href="https://github.com/781148/Aayush-Khosla-websit/blob/main/linear-regression-tutorial.ipynb" target="_blank">
       Linear Regression Notebook on GitHub
     </a>
