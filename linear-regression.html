@@ -33,105 +33,44 @@
 </div>
 
 <section>
-  <h1>Understanding Linear Regression in Python</h1>
+  <h1>Linear Regression Tutorial</h1>
   <p>
-    This blog breaks down a linear regression tutorial I worked through using Python.
-    I’ll explain the concepts, show the code, and answer key questions from the notebook.
+    I worked through this linear regression tutorial using Python. Below are my notes and answers to the questions in the notebook.
   </p>
 
-  <h2>What is Linear Regression?</h2>
+  <h2>Key Questions from the Notebook</h2>
+
+  <h3>1. What is `m` in y = mx + b?</h3>
   <p>
-    Linear regression is basically the strategy of finding the best-fit straight line through a set of data points.  
-    It helps predict one variable (y) based on another (x).  
-    The equation looks like:
+    `m` is the coefficient or slope of the line. It tells us how much y changes for a unit change in x.
   </p>
 
-  <pre><code>y = m * x + b</code></pre>
-
+  <h3>2. What is the R squared?</h3>
   <p>
-    where <b>m</b> is the slope and <b>b</b> is the intercept.
+    R squared measures how well the regression line fits the data. A value closer to 1 means the line explains most of the variance in y.
   </p>
 
-  <h2>Loading the Data</h2>
-  <pre><code>import numpy as np
-import matplotlib.pyplot as plt
-
-# Given dataset
-x = np.array([0.5, 1.0, 2.5, 4.0, 6.0])
-y = np.array([1.4, 1.9, 3.2, 3.8, 4.5])
-</code></pre>
-
-  <h2>Plotting the Scatter Plot</h2>
-  <pre><code>plt.scatter(x, y)
-plt.xlabel("x")
-plt.ylabel("y")
-plt.title("Scatter Plot of Data")
-plt.show()
-</code></pre>
-
-  <h2>Fitting the Best-Fit Line</h2>
-  <pre><code>m, b = np.polyfit(x, y, 1)
-print(m, b)
-
-plt.scatter(x, y)
-plt.plot(x, m*x + b)
-plt.show()
-</code></pre>
-
-  <h2>Computing Residuals</h2>
-  <pre><code>residuals = y - (m*x + b)
-print(residuals)
-</code></pre>
-
-  <h2>Total Least Squares Regression</h2>
+  <h3>3. What is the Adj. R squared?</h3>
   <p>
-    TLS considers errors in both x and y — not just y.  
-    It uses SVD to find the best line.
+    Adjusted R squared accounts for the number of predictors in the model. It adjusts the R squared value so it doesn’t artificially increase when more variables are added.
   </p>
 
-  <pre><code>X = np.vstack((x, y)).T
-mean = np.mean(X, axis=0)
-U, S, Vt = np.linalg.svd(X - mean)
-direction = Vt[0]
-</code></pre>
-
-  <h2>Questions From the Notebook (With Answers)</h2>
-
-  <h3>1. Is the relationship between x and y linear?</h3>
+  <h3>4. What is the P value?</h3>
   <p>
-    Yes. The scatter plot showed a clear straight-line trend — nothing curved or weird.
+    The P value tells us whether the slope of the line is statistically significant. A small P value (typically ≤ 0.05) means the slope is significantly different from zero.
   </p>
 
-  <h3>2. What does the slope mean?</h3>
+  <h3>5. What are the 95% confidence intervals?</h3>
   <p>
-    The slope tells you how much y increases for every 1 unit increase in x.  
-    A positive slope means y goes up as x goes up.
-  </p>
-
-  <h3>3. What do the residuals tell you?</h3>
-  <p>
-    They show how far off each predicted value is from the actual value.  
-    Small residuals mean the model is accurate.
-  </p>
-
-  <h3>4. When would total least squares be better?</h3>
-  <p>
-    TLS is better when both x and y have measurement errors.  
-    Regular regression only accounts for y errors, so TLS can give a cleaner, more realistic fit in noisy datasets.
+    The 95% confidence intervals give the range in which the true slope and intercept values are expected to fall 95% of the time.
   </p>
 
   <h2>View the Full Notebook</h2>
   <p>
-    You can check out the full Python notebook with all the code on GitHub: 
+    You can see the full Python notebook on GitHub here: 
     <a href="https://github.com/781148/Aayush-Khosla-websit/blob/main/linear-regression-tutorial.ipynb" target="_blank">
       Linear Regression Notebook on GitHub
     </a>
-  </p>
-
-  <h2>Final Thoughts</h2>
-  <p>
-    Linear regression is simple but useful.  
-    Once you're comfortable plotting, fitting, and analyzing residuals, you're basically set for most beginner-level machine learning tasks.
   </p>
 </section>
 
