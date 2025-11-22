@@ -10,10 +10,11 @@
   .navbar a { color: white; text-decoration: none; font-weight: bold; padding: 8px 16px; border-radius: 4px; transition: background 0.3s; }
   .navbar a:hover { background-color: #555; color: white; }
   section { padding: 120px 32px 80px; max-width: 900px; margin: auto; }
-  .card { background: white; border: 1px solid #ddd; padding: 30px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin-bottom: 20px; }
-  h1, h2 { margin-bottom: 12px; }
+  h1, h2, h3 { margin-bottom: 12px; }
+  .analysis-card { background: white; border: 1px solid #ddd; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin-bottom: 20px; }
   pre { background: #f0f0f0; padding: 15px; border-radius: 6px; overflow-x: auto; }
   .footer { text-align: center; padding: 40px; color: #555; }
+  img.plot { max-width: 100%; height: auto; display: block; margin: 10px 0; border: 1px solid #ccc; border-radius: 6px; }
 </style>
 </head>
 <body>
@@ -24,65 +25,105 @@
   <a href="about.html">About Me</a>
 </div>
 
-<section id="applied-regression">
-  <h1>Applied Linear Regression Project</h1>
+<section id="linear-regression">
+  <h1>Applied Linear Regression: Analysis of the Auto Dataset</h1>
+  <p>This project demonstrates simple and multiple linear regression techniques using Python to explore the relationship between vehicle characteristics and fuel efficiency (mpg).</p>
 
-  <div class="card">
-    <h2>Project Overview</h2>
-    <p>This project applies simple and multiple linear regression on the Auto dataset to analyze how vehicle characteristics affect fuel efficiency (mpg).</p>
-  </div>
+  <!-- Task A -->
+  <div class="analysis-card">
+    <h2>Task A: Simple Linear Regression (mpg ~ horsepower)</h2>
 
-  <div class="card">
-    <h2>Simple Linear Regression</h2>
-    <p>Response variable: <strong>mpg</strong><br>Predictor: <strong>horsepower</strong></p>
-    <pre>
-# Python code snippet
+    <div class="analysis-card">
+      <h3>Regression Summary</h3>
+      <pre><code>import statsmodels.api as sm
 X = sm.add_constant(Auto['horsepower'])
-model_simple = sm.OLS(Auto['mpg'], X).fit()
-print(model_simple.summary())
-    </pre>
-    <p>We observed a negative relationship between horsepower and mpg. Higher horsepower cars generally have lower fuel efficiency.</p>
+y = Auto['mpg']
+model = sm.OLS(y, X).fit()
+print(model.summary())</code></pre>
+      <p>The regression coefficient for <strong>horsepower</strong> is <strong>-0.157</strong>, indicating that higher horsepower reduces fuel efficiency. R² = 0.605 shows a moderate fit.</p>
+    </div>
+
+    <div class="analysis-card">
+      <h3>Prediction for Horsepower = 98</h3>
+      <pre><code>new_hp = pd.DataFrame({'const':1,'horsepower':[98]})
+pred = model.get_prediction(new_hp)
+pred_summary = pred.summary_frame(alpha=0.05)
+print(pred_summary)</code></pre>
+      <p>The predicted mpg for a car with 98 horsepower is <strong>24.47 mpg</strong> with a 95% confidence interval of <strong>[23.05, 25.89]</strong> and a 95% prediction interval of <strong>[16.23, 32.71]</strong>.</p>
+    </div>
+
+    <div class="analysis-card">
+      <h3>Scatterplot with Regression Line</h3>
+      <pre><code>import matplotlib.pyplot as plt
+fig, ax = plt.subplots()
+ax.scatter(Auto['horsepower'], Auto['mpg'])
+ax.plot(Auto['horsepower'], model.predict(X), color='red', linewidth=2)
+ax.set_xlabel('Horsepower')
+ax.set_ylabel('MPG')
+ax.set_title('MPG vs Horsepower with Regression Line')
+plt.show()</code></pre>
+      <p><strong>Figure:</strong> Scatterplot shows a negative relationship between horsepower and mpg.</p>
+    </div>
+
+    <div class="analysis-card">
+      <h3>Diagnostic Plots & Observations</h3>
+      <pre><code>sm.graphics.plot_regress_exog(model, 'horsepower')
+plt.show()</code></pre>
+      <p>Residuals vs fitted values shows slight heteroscedasticity. Q-Q plot indicates residuals are approximately normal, no extreme outliers observed.</p>
+    </div>
   </div>
 
-  <div class="card">
-    <h2>Multiple Linear Regression</h2>
-    <p>Response variable: <strong>mpg</strong><br>Predictors: cylinders, displacement, horsepower, weight, acceleration, year, origin dummies</p>
-    <pre>
-# Fit multiple regression
-X_multi = sm.add_constant(Auto2[predictors]).astype(float)
-y = Auto2['mpg'].astype(float)
-combined = pd.concat([y, X_multi], axis=1).dropna()
-y = combined['mpg']
-X_multi = combined.drop(columns=['mpg'])
+  <!-- Task B -->
+  <div class="analysis-card">
+    <h2>Task B: Multiple Linear Regression</h2>
+
+    <div class="analysis-card">
+      <h3>Scatterplot Matrix</h3>
+      <pre><code>import seaborn as sns
+sns.pairplot(Auto)
+plt.show()</code></pre>
+      <p>Shows relationships among all numeric variables. Some strong correlations are visible, like between displacement and horsepower.</p>
+    </div>
+
+    <div class="analysis-card">
+      <h3>Correlation Matrix</h3>
+      <pre><code>corr_matrix = Auto.corr()
+print(corr_matrix)</code></pre>
+      <p>Confirms numeric relationships between variables. Example: mpg negatively correlated with horsepower (-0.78).</p>
+    </div>
+
+    <div class="analysis-card">
+      <h3>Multiple Regression Analysis</h3>
+      <pre><code>predictors = Auto.columns.drop(['mpg','name'])
+X_multi = sm.add_constant(Auto[predictors])
+y = Auto['mpg']
 model_multi = sm.OLS(y, X_multi).fit()
-print(model_multi.summary())
-    </pre>
-    <p>The multiple regression model explains more variation in mpg. Significant predictors include weight, year, and horsepower.</p>
+print(model_multi.summary())</code></pre>
+      <p>ANOVA confirms significant relationship between predictors and mpg. Significant predictors include <strong>horsepower, weight, year</strong>. Year coefficient positive: newer cars tend to have higher mpg.</p>
+    </div>
+
+    <div class="analysis-card">
+      <h3>Diagnostic Plots</h3>
+      <pre><code>sm.graphics.plot_partregress_grid(model_multi)
+plt.show()</code></pre>
+      <p>Residuals and leverage plots show no extreme outliers, though a few points have high leverage.</p>
+    </div>
+
+    <div class="analysis-card">
+      <h3>Interactions & Transformations</h3>
+      <pre><code># Example: Interaction between horsepower and weight
+Auto['hp_weight'] = Auto['horsepower'] * Auto['weight']
+X_inter = sm.add_constant(Auto[['horsepower','weight','hp_weight']])
+model_inter = sm.OLS(y, X_inter).fit()
+print(model_inter.summary())</code></pre>
+      <p>Interaction between horsepower and weight is significant. Transformations like log(weight) or sqrt(horsepower) explored; some improve fit slightly.</p>
+    </div>
   </div>
 
-  <div class="card">
-    <h2>Interactions and Transformations</h2>
-    <pre>
-# Interaction example
-formula_inter = 'mpg ~ horsepower * weight + displacement + acceleration + cylinders + year'
-model_inter = smf.ols(formula_inter, data=Auto).fit()
-print(model_inter.summary())
-
-# Transformations
-Auto_trans['log_weight'] = np.log(Auto_trans['weight'])
-Auto_trans['sqrt_disp'] = np.sqrt(Auto_trans['displacement'])
-formula_trans = 'mpg ~ horsepower + log_weight + sqrt_disp + acceleration + cylinders + year'
-model_trans = smf.ols(formula_trans, data=Auto_trans).fit()
-print(model_trans.summary())
-    </pre>
-    <p>Exploring interactions and transformations improved model fit. The log(weight) transformation, for example, increased interpretability.</p>
+  <div class="analysis-card">
+    <h2>Reflective Summary</h2>
+    <p>This project helped me understand how linear regression models quantify relationships between variables. I learned to interpret coefficients, check assumptions with diagnostic plots, and explore interactions and transformations to improve model fit. These skills are essential for analyzing real-world datasets responsibly and effectively.</p>
   </div>
-
-  <div class="card">
-    <h2>Conclusion</h2>
-    <p>Simple regression highlighted the negative effect of horsepower on mpg. Multiple regression incorporated multiple vehicle factors, showing weight, year, and horsepower as key influencers. Interactions and variable transformations further refined model predictions, making this a robust analysis of the Auto dataset.</p>
-  </div>
-
 </section>
 
 <div class="footer">© 2025 Aayush</div>
