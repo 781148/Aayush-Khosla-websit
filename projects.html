@@ -3,18 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aayush | Projects</title>
+<title>Aayush | Applied Linear Regression</title>
 <style>
   body { margin: 0; font-family: Arial, sans-serif; background: #fafafa; color: #222; }
   .navbar { display: flex; justify-content: flex-start; gap: 32px; background-color: #333; padding: 14px 32px; position: fixed; top: 0; width: 100%; z-index: 100; }
   .navbar a { color: white; text-decoration: none; font-weight: bold; padding: 8px 16px; border-radius: 4px; transition: background 0.3s; }
   .navbar a:hover { background-color: #555; color: white; }
-  section { padding: 120px 32px 80px; max-width: 1000px; margin: auto; }
+  section { padding: 120px 32px 80px; max-width: 900px; margin: auto; }
+  .card { background: white; border: 1px solid #ddd; padding: 30px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin-bottom: 20px; }
   h1, h2 { margin-bottom: 12px; }
-  .projects-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-top: 20px; }
-  .project-card { background: white; border: 1px solid #ddd; padding: 20px; border-radius: 8px; transition: transform 0.3s, box-shadow 0.3s; }
-  .project-card:hover { transform: translateY(-5px); box-shadow: 0 8px 16px rgba(0,0,0,0.2); }
-  .project-card a { color: #333; text-decoration: none; font-weight: bold; }
+  pre { background: #f0f0f0; padding: 15px; border-radius: 6px; overflow-x: auto; }
   .footer { text-align: center; padding: 40px; color: #555; }
 </style>
 </head>
@@ -26,30 +24,65 @@
   <a href="about.html">About Me</a>
 </div>
 
-<section id="projects">
-  <h1>Projects</h1>
-  <div class="projects-container">
+<section id="applied-regression">
+  <h1>Applied Linear Regression Project</h1>
 
-    <div class="project-card">
-      <h2><a href="Traffic Light Project.html">Traffic Light Project</a></h2>
-      <p>This traffic light system simulates real-world traffic lights with pedestrian controls and left-turn signals.</p>
-      <p>Click the title to view the full project.</p>
-    </div>
-
-    <div class="project-card">
-      <h2><a href="Ansecombes report (2).pdf" target="_blank">Visualizing Anscombe’s Quartet</a></h2>
-      <p>This project visualizes Anscombe’s Quartet using Python to highlight the importance of statistical visualization.</p>
-      <p>Click the title to view the full PDF report.</p>
-    </div>
-
-    <!-- Updated Linear Regression project -->
-    <div class="project-card">
-      <h2><a href="linear-regression.html">Linear Regression</a></h2>
-      <p>This blog demonstrates linear regression techniques using Python, including visualization, residual analysis, and total least squares regression.</p>
-      <p>Click the title to view the full blog post.</p>
-    </div>
-
+  <div class="card">
+    <h2>Project Overview</h2>
+    <p>This project applies simple and multiple linear regression on the Auto dataset to analyze how vehicle characteristics affect fuel efficiency (mpg).</p>
   </div>
+
+  <div class="card">
+    <h2>Simple Linear Regression</h2>
+    <p>Response variable: <strong>mpg</strong><br>Predictor: <strong>horsepower</strong></p>
+    <pre>
+# Python code snippet
+X = sm.add_constant(Auto['horsepower'])
+model_simple = sm.OLS(Auto['mpg'], X).fit()
+print(model_simple.summary())
+    </pre>
+    <p>We observed a negative relationship between horsepower and mpg. Higher horsepower cars generally have lower fuel efficiency.</p>
+  </div>
+
+  <div class="card">
+    <h2>Multiple Linear Regression</h2>
+    <p>Response variable: <strong>mpg</strong><br>Predictors: cylinders, displacement, horsepower, weight, acceleration, year, origin dummies</p>
+    <pre>
+# Fit multiple regression
+X_multi = sm.add_constant(Auto2[predictors]).astype(float)
+y = Auto2['mpg'].astype(float)
+combined = pd.concat([y, X_multi], axis=1).dropna()
+y = combined['mpg']
+X_multi = combined.drop(columns=['mpg'])
+model_multi = sm.OLS(y, X_multi).fit()
+print(model_multi.summary())
+    </pre>
+    <p>The multiple regression model explains more variation in mpg. Significant predictors include weight, year, and horsepower.</p>
+  </div>
+
+  <div class="card">
+    <h2>Interactions and Transformations</h2>
+    <pre>
+# Interaction example
+formula_inter = 'mpg ~ horsepower * weight + displacement + acceleration + cylinders + year'
+model_inter = smf.ols(formula_inter, data=Auto).fit()
+print(model_inter.summary())
+
+# Transformations
+Auto_trans['log_weight'] = np.log(Auto_trans['weight'])
+Auto_trans['sqrt_disp'] = np.sqrt(Auto_trans['displacement'])
+formula_trans = 'mpg ~ horsepower + log_weight + sqrt_disp + acceleration + cylinders + year'
+model_trans = smf.ols(formula_trans, data=Auto_trans).fit()
+print(model_trans.summary())
+    </pre>
+    <p>Exploring interactions and transformations improved model fit. The log(weight) transformation, for example, increased interpretability.</p>
+  </div>
+
+  <div class="card">
+    <h2>Conclusion</h2>
+    <p>Simple regression highlighted the negative effect of horsepower on mpg. Multiple regression incorporated multiple vehicle factors, showing weight, year, and horsepower as key influencers. Interactions and variable transformations further refined model predictions, making this a robust analysis of the Auto dataset.</p>
+  </div>
+
 </section>
 
 <div class="footer">© 2025 Aayush</div>
