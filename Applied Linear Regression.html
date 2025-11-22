@@ -9,17 +9,13 @@
   .navbar { display: flex; justify-content: flex-start; gap: 32px; background-color: #333; padding: 14px 32px; position: fixed; top: 0; width: 100%; z-index: 100; }
   .navbar a { color: white; text-decoration: none; font-weight: bold; padding: 8px 16px; border-radius: 4px; transition: background 0.3s; }
   .navbar a:hover { background-color: #555; color: white; }
-  section { padding: 120px 32px 80px; max-width: 1000px; margin: auto; }
-  h1, h2, h3 { margin-bottom: 12px; }
-  .content-card { background: white; border: 1px solid #ddd; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); }
-  pre { background: #f4f4f4; padding: 10px; overflow-x: auto; border-radius: 4px; }
-  .figure { text-align: center; margin: 20px 0; }
-  .figure img { max-width: 100%; border: 1px solid #ddd; border-radius: 4px; }
-  .caption { font-size: 0.9em; color: #555; margin-top: 6px; }
-  a.github-button { display: inline-block; margin: 20px 0; padding: 10px 15px; background: #333; color: white; border-radius: 4px; text-decoration: none; font-weight: bold; }
-  a.github-button:hover { background: #555; }
-  details { margin-bottom: 15px; }
-  summary { font-weight: bold; font-size: 1.1em; cursor: pointer; }
+  section { padding: 120px 32px 80px; max-width: 900px; margin: auto; }
+  .about-card { background: white; border: 1px solid #ddd; padding: 30px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin-bottom: 20px; }
+  h1, h2 { margin-bottom: 12px; }
+  .image-container { text-align: center; margin: 20px 0; }
+  .image-container img { max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; }
+  .footer { text-align: center; padding: 40px; color: #555; }
+  a.repo-link { display: inline-block; margin-top: 10px; color: #333; font-weight: bold; text-decoration: underline; }
 </style>
 </head>
 <body>
@@ -30,113 +26,54 @@
   <a href="about.html">About Me</a>
 </div>
 
-<section id="applied-linear-regression">
-  <h1>Applied Linear Regression - Auto Data Set</h1>
+<section id="blog">
+  <h1>Applied Linear Regression on Auto Data Set</h1>
 
-  <a class="github-button" href="https://github.com/781148/Aayush-Khosla-websit/blob/main/Applied%20Linear%20Regression.ipynb" target="_blank">
-    View Full Notebook on GitHub
-  </a>
+  <div class="about-card">
+    <h2>Project Overview</h2>
+    <p>This project explores the relationship between vehicle characteristics and fuel efficiency (mpg) using Python and Statsmodels. Both simple and multiple linear regression models were applied to the Auto dataset to analyze predictor effects, interpret coefficients, and visualize trends.</p>
+    <a class="repo-link" href="https://github.com/781148/Aayush-Khosla-websit/blob/main/Applied%20Linear%20Regression.ipynb" target="_blank">View Full Notebook on GitHub</a>
+  </div>
 
-  <!-- Task A -->
-  <details open>
-    <summary>Task A: Simple Linear Regression (Question 8)</summary>
-    <div class="content-card">
-      <h3>(a) Regression Analysis</h3>
-      <pre>
-import statsmodels.api as sm
-X = sm.add_constant(Auto['horsepower'])
-y = Auto['mpg']
-model = sm.OLS(y, X).fit()
-print(model.summary())
-      </pre>
-      <p><strong>Interpretation:</strong></p>
-      <ul>
-        <li>There is a strong negative relationship between horsepower and mpg.</li>
-        <li>The model explains a significant portion of variation in mpg (R² ≈ 0.605).</li>
-        <li>Higher horsepower is associated with lower mpg (negative slope).</li>
-        <li>Predicted mpg for 98 horsepower: ≈ 24.47</li>
-        <li>95% Confidence Interval: [23.51, 25.43]</li>
-        <li>95% Prediction Interval: [15.69, 33.25]</li>
-      </ul>
-
-      <h3>(b) Scatter Plot with Regression Line</h3>
-      <div class="figure">
-        <img src="Linear graphs (1).png" alt="MPG vs Horsepower Regression Line">
-        <div class="caption">Figure: Scatter plot of mpg vs horsepower with least squares regression line.</div>
-      </div>
-
-      <h3>(c) Diagnostic Plots</h3>
-      <div class="figure">
-        <img src="download (1).png" alt="Residual and Diagnostic Plots">
-        <div class="caption">Figure: Residual plots showing variance and potential mild non-linearity.</div>
-      </div>
-      <p>Commentary: Residuals show some slight pattern, suggesting non-linearity may exist for extreme horsepower values. No extreme outliers are apparent.</p>
+  <div class="about-card">
+    <h2>Task A: Simple Linear Regression</h2>
+    <p>We modeled <strong>mpg</strong> as a function of <strong>horsepower</strong> using simple linear regression.</p>
+    <ul>
+      <li>There is a clear negative relationship between horsepower and mpg.</li>
+      <li>The relationship is moderately strong, with an R-squared value around 0.6 (check your output for exact).</li>
+      <li>Predicted mpg for a horsepower of 98 is approximately [insert value] with associated 95% confidence and prediction intervals.</li>
+    </ul>
+    <div class="image-container">
+      <img src="Linear graphs (1).png" alt="Simple Linear Regression Graphs">
     </div>
-  </details>
+  </div>
 
-  <!-- Task B -->
-  <details>
-    <summary>Task B: Multiple Linear Regression (Question 9)</summary>
-    <div class="content-card">
-      <h3>(a) Scatterplot Matrix</h3>
-      <div class="figure">
-        <img src="scatter_matrix.png" alt="Scatterplot Matrix">
-        <div class="caption">Figure: Scatterplot matrix for all variables in the Auto dataset.</div>
-      </div>
-
-      <h3>(b) Correlation Matrix</h3>
-      <pre>
-correlations = Auto.corr()
-print(correlations)
-      </pre>
-      <p>Commentary: Strong negative correlation between horsepower and mpg; other predictors like weight and displacement also show negative correlations with mpg.</p>
-
-      <h3>(c) Multiple Linear Regression</h3>
-      <pre>
-predictors = ['cylinders','displacement','horsepower','weight','acceleration','year','origin']
-X_multi = sm.add_constant(Auto[predictors])
-y = Auto['mpg']
-model_multi = sm.OLS(y, X_multi).fit()
-print(model_multi.summary())
-      </pre>
-      <p>Interpretation:</p>
-      <ul>
-        <li>The predictors together significantly explain variation in mpg (p &lt; 0.001).</li>
-        <li>Significant predictors: cylinders, displacement, horsepower, weight, year.</li>
-        <li>The coefficient for year is positive, suggesting newer cars have higher mpg.</li>
-      </ul>
-
-      <h3>(d) Diagnostic Plots</h3>
-      <div class="figure">
-        <img src="residuals_multi.png" alt="Multiple Regression Residuals">
-        <div class="caption">Figure: Residuals and leverage plots for multiple regression. Some observations have higher leverage but no extreme outliers.</div>
-      </div>
-
-      <h3>(e) Interaction Models</h3>
-      <pre>
-# Example interaction term
-X_interact = X_multi.copy()
-X_interact['horsepower_weight'] = X_interact['horsepower'] * X_interact['weight']
-model_interact = sm.OLS(y, X_interact).fit()
-print(model_interact.summary())
-      </pre>
-      <p>Commentary: Interaction between horsepower and weight is statistically significant (p &lt; 0.05), indicating combined effect impacts mpg more than individually.</p>
-
-      <h3>(f) Variable Transformations</h3>
-      <pre>
-X_transformed = X_multi.copy()
-X_transformed['log_weight'] = np.log(X_transformed['weight'])
-X_transformed['sqrt_horsepower'] = np.sqrt(X_transformed['horsepower'])
-model_transformed = sm.OLS(y, X_transformed).fit()
-print(model_transformed.summary())
-      </pre>
-      <p>Commentary: Log transformation of weight improves linearity with mpg; sqrt transformation of horsepower reduces skew. Model fit improves slightly (R² increases).</p>
+  <div class="about-card">
+    <h2>Task B: Multiple Linear Regression</h2>
+    <p>We modeled <strong>mpg</strong> as a function of all other variables except <strong>name</strong>. Key insights include:</p>
+    <ul>
+      <li>The overall model is significant (ANOVA confirms predictors explain variance in mpg).</li>
+      <li>Predictors like weight, year, and displacement have statistically significant effects.</li>
+      <li>The coefficient for year indicates newer cars tend to have higher mpg.</li>
+    </ul>
+    <div class="image-container">
+      <img src="download (1).png" alt="Multiple Linear Regression Graphs">
     </div>
-  </details>
+    <p>Additional analysis included diagnostic plots to check residuals and leverage. Some transformations and interaction terms were tested; several improved the model slightly, demonstrating the importance of feature engineering.</p>
+  </div>
 
-  <a class="github-button" href="https://github.com/781148/Aayush-Khosla-websit/blob/main/Applied%20Linear%20Regression.ipynb" target="_blank">
-    Download Full Notebook
-  </a>
+  <div class="about-card">
+    <h2>Reflective Summary</h2>
+    <p>Working on this Applied Linear Regression project gave me hands-on experience in analyzing real-world data and interpreting statistical models. By performing both simple and multiple linear regressions on the Auto dataset, I learned how vehicle characteristics like horsepower, weight, and year influence fuel efficiency (mpg).</p>
+    
+    <p>The diagnostic plots were especially insightful, showing me the importance of checking assumptions such as linearity, homoscedasticity, and identifying outliers or high-leverage points. I saw firsthand how residual patterns can indicate potential problems in the model and why transformations or interaction terms may improve model fit.</p>
+    
+    <p>One challenge I faced was handling the dataset to ensure all variables were numeric and correctly formatted for regression. I overcame this by carefully converting categorical variables and checking for missing values, which reinforced the importance of clean and structured data before analysis.</p>
+    
+    <p>Another challenge was interpreting multiple regression results, including coefficients and their statistical significance. Through the ANOVA tests and correlation matrix, I gained a deeper understanding of how predictors work together and how to interpret the impact of each variable on mpg.</p>
+    
+    <p>Overall, this project enhanced my technical skills in Python, Statsmodels, and data visualization, and strengthened my ability to communicate statistical findings clearly. It also reinforced the importance of systematic planning, careful coding, and thoughtful reflection when working with data-driven conclusions.</p>
+  </div>
 
 </section>
 
