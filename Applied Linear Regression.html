@@ -5,113 +5,33 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Aayush | Applied Linear Regression</title>
 <style>
-  /* Base body styling */
-  body {
-    font-family: "Georgia", serif;
-    line-height: 1.7;
-    margin: 0;
-    padding: 0;
-    background: #fdfdfd;
-    color: #222;
-  }
-
-  /* Navbar */
-  .navbar {
-    display: flex;
-    justify-content: flex-start;
-    gap: 32px;
+  body { margin: 0; font-family: Arial, sans-serif; background: #fafafa; color: #222; }
+  .navbar { display: flex; justify-content: flex-start; gap: 32px; background-color: #333; padding: 14px 32px; position: fixed; top: 0; width: 100%; z-index: 100; }
+  .navbar a { color: white; text-decoration: none; font-weight: bold; padding: 8px 16px; border-radius: 4px; transition: background 0.3s; }
+  .navbar a:hover { background-color: #555; color: white; }
+  section { padding: 120px 32px 80px; max-width: 900px; margin: auto; }
+  h1, h2 { margin-bottom: 12px; }
+  .content-card { background: white; border: 1px solid #ddd; padding: 30px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin-bottom: 20px; }
+  .figure { text-align: center; margin: 20px 0; }
+  .figure img { max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 5px; }
+  .caption { font-size: 0.9em; color: #555; margin-top: 6px; }
+  blockquote { font-style: italic; color: #333; margin: 10px 0; border-left: 4px solid #ccc; padding-left: 12px; }
+  .github-button {
+    display: inline-block;
+    padding: 10px 20px;
     background-color: #333;
-    padding: 14px 32px;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 100;
-  }
-  .navbar a {
-    color: white;
+    color: #fff;
     text-decoration: none;
     font-weight: bold;
-    padding: 8px 16px;
-    border-radius: 4px;
-    transition: background 0.3s;
+    border-radius: 5px;
+    transition: background 0.3s, transform 0.2s;
+    margin-bottom: 20px;
   }
-  .navbar a:hover {
+  .github-button:hover {
     background-color: #555;
-    color: white;
+    transform: translateY(-2px);
   }
-
-  /* Section styling */
-  section {
-    padding: 120px 32px 80px;
-    max-width: 900px;
-    margin: auto;
-  }
-
-  /* Headers */
-  h1 {
-    font-size: 2.4em;
-    margin-bottom: 16px;
-    border-bottom: 2px solid #ccc;
-    padding-bottom: 8px;
-  }
-  h2 {
-    font-size: 1.8em;
-    margin-bottom: 12px;
-    color: #333;
-  }
-  h3 {
-    font-size: 1.4em;
-    margin-bottom: 10px;
-    color: #555;
-  }
-
-  /* Card style for content blocks */
-  .content-card {
-    background: #fff;
-    border-left: 4px solid #007acc;
-    padding: 24px 28px;
-    border-radius: 6px;
-    margin-bottom: 30px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-  }
-
-  /* Images */
-  .plot {
-    width: 100%;
-    max-width: 850px;
-    display: block;
-    margin: 20px auto;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-  }
-  .caption {
-    font-size: 0.95em;
-    color: #555;
-    text-align: center;
-    margin-top: 8px;
-  }
-
-  /* Footer */
-  .footer {
-    text-align: center;
-    padding: 40px;
-    color: #555;
-    font-size: 0.9em;
-    border-top: 1px solid #ddd;
-    margin-top: 40px;
-  }
-
-  /* Blockquotes for key insights */
-  blockquote {
-    font-style: italic;
-    color: #444;
-    border-left: 4px solid #007acc;
-    padding-left: 16px;
-    margin-left: 0;
-    margin-right: 0;
-    margin-top: 16px;
-    margin-bottom: 16px;
-  }
+  .footer { text-align: center; padding: 40px; color: #555; }
 </style>
 </head>
 <body>
@@ -122,64 +42,50 @@
   <a href="about.html">About Me</a>
 </div>
 
-<section>
-  <h1>Applied Linear Regression: Auto Dataset</h1>
+<section id="linear-regression">
+  <h1>Applied Linear Regression on the Auto Dataset</h1>
 
-  <!-- Introduction -->
+  <!-- GitHub Button -->
+  <a class="github-button" href="https://github.com/781148/Aayush-Khosla-websit/blob/main/Applied%20Linear%20Regression.ipynb" target="_blank">View Full Jupyter Notebook on GitHub</a>
+
   <div class="content-card">
     <h2>Introduction</h2>
-    <p>This project analyzes the <strong>Auto dataset</strong> to explore relationships between car characteristics and fuel efficiency (mpg) using <strong>simple and multiple linear regression</strong>. All analysis was done in Python with <em>statsmodels</em> and <em>pandas</em>, with visualization to interpret model results and detect potential issues.</p>
+    <p>This project applies linear regression techniques to the Auto dataset to explore how vehicle characteristics impact fuel efficiency (mpg). Simple and multiple regression models were used, with visualizations and diagnostic checks, to interpret the results.</p>
   </div>
 
-  <!-- Simple Linear Regression -->
   <div class="content-card">
-    <h2>Simple Linear Regression</h2>
-    <p>We start by analyzing the relationship between <strong>horsepower</strong> and <strong>mpg</strong>. The model uses mpg as the response variable and horsepower as the predictor.</p>
-
-    <h3>Model Output</h3>
-    <p>The regression results indicate a <strong>negative relationship</strong> between horsepower and mpg. Higher horsepower is associated with lower fuel efficiency. The coefficient for horsepower is statistically significant, indicating that it reliably predicts mpg.</p>
-
-    <img src="Linear graphs (1).png" alt="Simple Linear Regression Plot" class="plot">
-    <p class="caption">Figure 1: Scatterplot of mpg vs. horsepower with the fitted regression line. The line shows the predicted mpg based on horsepower.</p>
-
-    <blockquote>
-      Insight: Cars with higher horsepower tend to have lower mpg, which aligns with expectations that more powerful engines consume more fuel.
-    </blockquote>
+    <h2>Simple Linear Regression: MPG vs Horsepower</h2>
+    <p>We used horsepower as the predictor and mpg as the response for a simple linear regression model.</p>
+    <blockquote>The regression indicates a strong negative relationship: as horsepower increases, fuel efficiency decreases.</blockquote>
+    <div class="figure">
+      <img src="Linear graphs (1).png" alt="Simple Linear Regression Plot">
+      <div class="caption">Figure 1: Scatter plot of MPG vs Horsepower with fitted regression line.</div>
+    </div>
+    <p>The model predicts mpg for a vehicle with 98 horsepower, including the 95% confidence and prediction intervals. This allows estimation of fuel efficiency along with expected variability.</p>
   </div>
 
-  <!-- Multiple Linear Regression -->
   <div class="content-card">
-    <h2>Multiple Linear Regression</h2>
-    <p>We then expanded to multiple linear regression using all numeric predictors (cylinders, displacement, horsepower, weight, acceleration, year, origin) to predict mpg. This allows us to account for the combined effects of multiple variables.</p>
+    <h2>Multiple Linear Regression: Predicting MPG</h2>
+    <p>All numeric predictors except the car name were included in a multiple linear regression model to predict mpg. A scatterplot matrix and correlation matrix helped understand variable relationships.</p>
+    <div class="figure">
+      <img src="download (1).png" alt="Predicted vs Actual MPG">
+      <div class="caption">Figure 2: Predicted vs Actual MPG from the multiple regression model.</div>
+    </div>
+    <p>Regression coefficients reveal the effect of each variable on mpg. For example, the 'year' coefficient shows that newer cars generally have better fuel efficiency. Diagnostic plots help identify outliers and influential observations.</p>
+  </div>
 
-    <h3>Model Output & Analysis</h3>
-    <p>The results show several predictors are statistically significant, including:</p>
+  <div class="content-card">
+    <h2>Reflections and Insights</h2>
     <ul>
-      <li><strong>Horsepower</strong>: negative effect on mpg</li>
-      <li><strong>Weight</strong>: heavier cars have lower mpg</li>
-      <li><strong>Year</strong>: newer cars tend to have higher mpg</li>
+      <li>Understanding predictor-response relationships is crucial before modeling.</li>
+      <li>Regression coefficients should be interpreted in context of the variables.</li>
+      <li>Diagnostic checks ensure model assumptions are valid.</li>
+      <li>Transformations or interactions can improve model performance.</li>
     </ul>
-
-    <img src="download(1).png" alt="Multiple Linear Regression Plots" class="plot">
-    <p class="caption">Figure 2: Residual plots for the multiple regression model. These help assess the assumptions of linearity, homoscedasticity, and identify potential outliers.</p>
-
-    <blockquote>
-      Insight: While most residuals are randomly distributed, a few high-leverage points suggest unusual cars that may influence the model fit.
-    </blockquote>
+    <blockquote>This project improved my skills in applied regression, visualization, and interpreting real-world data.</blockquote>
   </div>
 
-  <!-- Reflections -->
-  <div class="content-card">
-    <h2>Reflections & Learnings</h2>
-    <p>This project reinforced the importance of:</p>
-    <ul>
-      <li>Exploratory data analysis before modeling</li>
-      <li>Checking model assumptions using diagnostic plots</li>
-      <li>Interpreting regression coefficients in context</li>
-      <li>Considering multiple predictors together for more accurate predictions</li>
-    </ul>
-    <p>The combination of visualizations and regression results provides a complete picture of how car characteristics relate to fuel efficiency.</p>
-  </div>
+  <p>📂 <a class="github-button" href="https://github.com/781148/Aayush-Khosla-websit/blob/main/Applied%20Linear%20Regression.ipynb" target="_blank">Open the full notebook on GitHub</a> to see all code, outputs, and plots.</p>
 
 </section>
 
