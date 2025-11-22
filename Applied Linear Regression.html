@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Aayush | Applied Linear Regression</title>
 <style>
-  body { margin: 0; font-family: Arial, sans-serif; background: #fafafa; color: #222; }
+  body { margin: 0; font-family: Arial, sans-serif; background: #fafafa; color: #222; scroll-behavior: smooth; }
   .navbar { display: flex; justify-content: flex-start; gap: 32px; background-color: #333; padding: 14px 32px; position: fixed; top: 0; width: 100%; z-index: 100; }
   .navbar a { color: white; text-decoration: none; font-weight: bold; padding: 8px 16px; border-radius: 4px; transition: background 0.3s; }
   .navbar a:hover { background-color: #555; color: white; }
@@ -27,10 +27,12 @@
     transition: background 0.3s, transform 0.2s;
     margin-bottom: 20px;
   }
-  .github-button:hover {
-    background-color: #555;
-    transform: translateY(-2px);
-  }
+  .github-button:hover { background-color: #555; transform: translateY(-2px); }
+  details { margin-bottom: 20px; border: 1px solid #ddd; border-radius: 6px; padding: 15px; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+  summary { font-weight: bold; cursor: pointer; font-size: 1.1em; }
+  summary:hover { color: #333; }
+  #back-to-top { position: fixed; bottom: 40px; right: 40px; background-color: #333; color: #fff; padding: 10px 15px; border-radius: 5px; text-decoration: none; font-weight: bold; display: none; z-index: 100; transition: background 0.3s, transform 0.2s; }
+  #back-to-top:hover { background-color: #555; transform: translateY(-2px); }
   .footer { text-align: center; padding: 40px; color: #555; }
 </style>
 </head>
@@ -48,47 +50,70 @@
   <!-- GitHub Button -->
   <a class="github-button" href="https://github.com/781148/Aayush-Khosla-websit/blob/main/Applied%20Linear%20Regression.ipynb" target="_blank">View Full Jupyter Notebook on GitHub</a>
 
-  <div class="content-card">
-    <h2>Introduction</h2>
-    <p>This project applies linear regression techniques to the Auto dataset to explore how vehicle characteristics impact fuel efficiency (mpg). Simple and multiple regression models were used, with visualizations and diagnostic checks, to interpret the results.</p>
-  </div>
-
-  <div class="content-card">
-    <h2>Simple Linear Regression: MPG vs Horsepower</h2>
-    <p>We used horsepower as the predictor and mpg as the response for a simple linear regression model.</p>
-    <blockquote>The regression indicates a strong negative relationship: as horsepower increases, fuel efficiency decreases.</blockquote>
-    <div class="figure">
-      <img src="Linear graphs (1).png" alt="Simple Linear Regression Plot">
-      <div class="caption">Figure 1: Scatter plot of MPG vs Horsepower with fitted regression line.</div>
+  <details open>
+    <summary>Introduction</summary>
+    <div class="content-card">
+      <p>This project applies linear regression techniques to the Auto dataset to explore how vehicle characteristics impact fuel efficiency (mpg). Simple and multiple regression models were used, with visualizations and diagnostic checks, to interpret the results.</p>
     </div>
-    <p>The model predicts mpg for a vehicle with 98 horsepower, including the 95% confidence and prediction intervals. This allows estimation of fuel efficiency along with expected variability.</p>
-  </div>
+  </details>
 
-  <div class="content-card">
-    <h2>Multiple Linear Regression: Predicting MPG</h2>
-    <p>All numeric predictors except the car name were included in a multiple linear regression model to predict mpg. A scatterplot matrix and correlation matrix helped understand variable relationships.</p>
-    <div class="figure">
-      <img src="download (1).png" alt="Predicted vs Actual MPG">
-      <div class="caption">Figure 2: Predicted vs Actual MPG from the multiple regression model.</div>
+  <details>
+    <summary>Simple Linear Regression: MPG vs Horsepower</summary>
+    <div class="content-card">
+      <p>We used horsepower as the predictor and mpg as the response for a simple linear regression model.</p>
+      <blockquote>The regression indicates a strong negative relationship: as horsepower increases, fuel efficiency decreases.</blockquote>
+      <div class="figure">
+        <img src="Linear graphs (1).png" alt="Simple Linear Regression Plot">
+        <div class="caption">Figure 1: Scatter plot of MPG vs Horsepower with fitted regression line.</div>
+      </div>
+      <p>The model predicts mpg for a vehicle with 98 horsepower, including the 95% confidence and prediction intervals. This allows estimation of fuel efficiency along with expected variability.</p>
     </div>
-    <p>Regression coefficients reveal the effect of each variable on mpg. For example, the 'year' coefficient shows that newer cars generally have better fuel efficiency. Diagnostic plots help identify outliers and influential observations.</p>
-  </div>
+  </details>
 
-  <div class="content-card">
-    <h2>Reflections and Insights</h2>
-    <ul>
-      <li>Understanding predictor-response relationships is crucial before modeling.</li>
-      <li>Regression coefficients should be interpreted in context of the variables.</li>
-      <li>Diagnostic checks ensure model assumptions are valid.</li>
-      <li>Transformations or interactions can improve model performance.</li>
-    </ul>
-    <blockquote>This project improved my skills in applied regression, visualization, and interpreting real-world data.</blockquote>
-  </div>
+  <details>
+    <summary>Multiple Linear Regression: Predicting MPG</summary>
+    <div class="content-card">
+      <p>All numeric predictors except the car name were included in a multiple linear regression model to predict mpg. A scatterplot matrix and correlation matrix helped understand variable relationships.</p>
+      <div class="figure">
+        <img src="download (1).png" alt="Predicted vs Actual MPG">
+        <div class="caption">Figure 2: Predicted vs Actual MPG from the multiple regression model.</div>
+      </div>
+      <p>Regression coefficients reveal the effect of each variable on mpg. For example, the 'year' coefficient shows that newer cars generally have better fuel efficiency. Diagnostic plots help identify outliers and influential observations.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Reflections and Insights</summary>
+    <div class="content-card">
+      <ul>
+        <li>Understanding predictor-response relationships is crucial before modeling.</li>
+        <li>Regression coefficients should be interpreted in context of the variables.</li>
+        <li>Diagnostic checks ensure model assumptions are valid.</li>
+        <li>Transformations or interactions can improve model performance.</li>
+      </ul>
+      <blockquote>This project improved my skills in applied regression, visualization, and interpreting real-world data.</blockquote>
+    </div>
+  </details>
 
   <p>📂 <a class="github-button" href="https://github.com/781148/Aayush-Khosla-websit/blob/main/Applied%20Linear%20Regression.ipynb" target="_blank">Open the full notebook on GitHub</a> to see all code, outputs, and plots.</p>
 
 </section>
 
+<a href="#linear-regression" id="back-to-top">Back to Top</a>
+
 <div class="footer">© 2025 Aayush</div>
+
+<script>
+  // Show "Back to Top" button when scrolling down
+  window.onscroll = function() {
+    const btn = document.getElementById("back-to-top");
+    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+      btn.style.display = "block";
+    } else {
+      btn.style.display = "none";
+    }
+  }
+</script>
+
 </body>
 </html>
