@@ -5,16 +5,113 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Aayush | Applied Linear Regression</title>
 <style>
-  body { margin: 0; font-family: Arial, sans-serif; background: #fafafa; color: #222; }
-  .navbar { display: flex; justify-content: flex-start; gap: 32px; background-color: #333; padding: 14px 32px; position: fixed; top: 0; width: 100%; z-index: 100; }
-  .navbar a { color: white; text-decoration: none; font-weight: bold; padding: 8px 16px; border-radius: 4px; transition: background 0.3s; }
-  .navbar a:hover { background-color: #555; color: white; }
-  section { padding: 120px 32px 80px; max-width: 900px; margin: auto; }
-  h1, h2, h3 { margin-bottom: 12px; }
-  .analysis-card { background: white; border: 1px solid #ddd; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin-bottom: 20px; }
-  pre { background: #f0f0f0; padding: 15px; border-radius: 6px; overflow-x: auto; }
-  .footer { text-align: center; padding: 40px; color: #555; }
-  img.plot { max-width: 100%; height: auto; display: block; margin: 10px 0; border: 1px solid #ccc; border-radius: 6px; }
+  /* Base body styling */
+  body {
+    font-family: "Georgia", serif;
+    line-height: 1.7;
+    margin: 0;
+    padding: 0;
+    background: #fdfdfd;
+    color: #222;
+  }
+
+  /* Navbar */
+  .navbar {
+    display: flex;
+    justify-content: flex-start;
+    gap: 32px;
+    background-color: #333;
+    padding: 14px 32px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+  }
+  .navbar a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: background 0.3s;
+  }
+  .navbar a:hover {
+    background-color: #555;
+    color: white;
+  }
+
+  /* Section styling */
+  section {
+    padding: 120px 32px 80px;
+    max-width: 900px;
+    margin: auto;
+  }
+
+  /* Headers */
+  h1 {
+    font-size: 2.4em;
+    margin-bottom: 16px;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 8px;
+  }
+  h2 {
+    font-size: 1.8em;
+    margin-bottom: 12px;
+    color: #333;
+  }
+  h3 {
+    font-size: 1.4em;
+    margin-bottom: 10px;
+    color: #555;
+  }
+
+  /* Card style for content blocks */
+  .content-card {
+    background: #fff;
+    border-left: 4px solid #007acc;
+    padding: 24px 28px;
+    border-radius: 6px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  }
+
+  /* Images */
+  .plot {
+    width: 100%;
+    max-width: 850px;
+    display: block;
+    margin: 20px auto;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+  }
+  .caption {
+    font-size: 0.95em;
+    color: #555;
+    text-align: center;
+    margin-top: 8px;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 40px;
+    color: #555;
+    font-size: 0.9em;
+    border-top: 1px solid #ddd;
+    margin-top: 40px;
+  }
+
+  /* Blockquotes for key insights */
+  blockquote {
+    font-style: italic;
+    color: #444;
+    border-left: 4px solid #007acc;
+    padding-left: 16px;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
 </style>
 </head>
 <body>
@@ -25,105 +122,65 @@
   <a href="about.html">About Me</a>
 </div>
 
-<section id="linear-regression">
-  <h1>Applied Linear Regression: Analysis of the Auto Dataset</h1>
-  <p>This project demonstrates simple and multiple linear regression techniques using Python to explore the relationship between vehicle characteristics and fuel efficiency (mpg).</p>
+<section>
+  <h1>Applied Linear Regression: Auto Dataset</h1>
 
-  <!-- Task A -->
-  <div class="analysis-card">
-    <h2>Task A: Simple Linear Regression (mpg ~ horsepower)</h2>
-
-    <div class="analysis-card">
-      <h3>Regression Summary</h3>
-      <pre><code>import statsmodels.api as sm
-X = sm.add_constant(Auto['horsepower'])
-y = Auto['mpg']
-model = sm.OLS(y, X).fit()
-print(model.summary())</code></pre>
-      <p>The regression coefficient for <strong>horsepower</strong> is <strong>-0.157</strong>, indicating that higher horsepower reduces fuel efficiency. R² = 0.605 shows a moderate fit.</p>
-    </div>
-
-    <div class="analysis-card">
-      <h3>Prediction for Horsepower = 98</h3>
-      <pre><code>new_hp = pd.DataFrame({'const':1,'horsepower':[98]})
-pred = model.get_prediction(new_hp)
-pred_summary = pred.summary_frame(alpha=0.05)
-print(pred_summary)</code></pre>
-      <p>The predicted mpg for a car with 98 horsepower is <strong>24.47 mpg</strong> with a 95% confidence interval of <strong>[23.05, 25.89]</strong> and a 95% prediction interval of <strong>[16.23, 32.71]</strong>.</p>
-    </div>
-
-    <div class="analysis-card">
-      <h3>Scatterplot with Regression Line</h3>
-      <pre><code>import matplotlib.pyplot as plt
-fig, ax = plt.subplots()
-ax.scatter(Auto['horsepower'], Auto['mpg'])
-ax.plot(Auto['horsepower'], model.predict(X), color='red', linewidth=2)
-ax.set_xlabel('Horsepower')
-ax.set_ylabel('MPG')
-ax.set_title('MPG vs Horsepower with Regression Line')
-plt.show()</code></pre>
-      <p><strong>Figure:</strong> Scatterplot shows a negative relationship between horsepower and mpg.</p>
-    </div>
-
-    <div class="analysis-card">
-      <h3>Diagnostic Plots & Observations</h3>
-      <pre><code>sm.graphics.plot_regress_exog(model, 'horsepower')
-plt.show()</code></pre>
-      <p>Residuals vs fitted values shows slight heteroscedasticity. Q-Q plot indicates residuals are approximately normal, no extreme outliers observed.</p>
-    </div>
+  <!-- Introduction -->
+  <div class="content-card">
+    <h2>Introduction</h2>
+    <p>This project analyzes the <strong>Auto dataset</strong> to explore relationships between car characteristics and fuel efficiency (mpg) using <strong>simple and multiple linear regression</strong>. All analysis was done in Python with <em>statsmodels</em> and <em>pandas</em>, with visualization to interpret model results and detect potential issues.</p>
   </div>
 
-  <!-- Task B -->
-  <div class="analysis-card">
-    <h2>Task B: Multiple Linear Regression</h2>
+  <!-- Simple Linear Regression -->
+  <div class="content-card">
+    <h2>Simple Linear Regression</h2>
+    <p>We start by analyzing the relationship between <strong>horsepower</strong> and <strong>mpg</strong>. The model uses mpg as the response variable and horsepower as the predictor.</p>
 
-    <div class="analysis-card">
-      <h3>Scatterplot Matrix</h3>
-      <pre><code>import seaborn as sns
-sns.pairplot(Auto)
-plt.show()</code></pre>
-      <p>Shows relationships among all numeric variables. Some strong correlations are visible, like between displacement and horsepower.</p>
-    </div>
+    <h3>Model Output</h3>
+    <p>The regression results indicate a <strong>negative relationship</strong> between horsepower and mpg. Higher horsepower is associated with lower fuel efficiency. The coefficient for horsepower is statistically significant, indicating that it reliably predicts mpg.</p>
 
-    <div class="analysis-card">
-      <h3>Correlation Matrix</h3>
-      <pre><code>corr_matrix = Auto.corr()
-print(corr_matrix)</code></pre>
-      <p>Confirms numeric relationships between variables. Example: mpg negatively correlated with horsepower (-0.78).</p>
-    </div>
+    <img src="Linear graphs (1).png" alt="Simple Linear Regression Plot" class="plot">
+    <p class="caption">Figure 1: Scatterplot of mpg vs. horsepower with the fitted regression line. The line shows the predicted mpg based on horsepower.</p>
 
-    <div class="analysis-card">
-      <h3>Multiple Regression Analysis</h3>
-      <pre><code>predictors = Auto.columns.drop(['mpg','name'])
-X_multi = sm.add_constant(Auto[predictors])
-y = Auto['mpg']
-model_multi = sm.OLS(y, X_multi).fit()
-print(model_multi.summary())</code></pre>
-      <p>ANOVA confirms significant relationship between predictors and mpg. Significant predictors include <strong>horsepower, weight, year</strong>. Year coefficient positive: newer cars tend to have higher mpg.</p>
-    </div>
-
-    <div class="analysis-card">
-      <h3>Diagnostic Plots</h3>
-      <pre><code>sm.graphics.plot_partregress_grid(model_multi)
-plt.show()</code></pre>
-      <p>Residuals and leverage plots show no extreme outliers, though a few points have high leverage.</p>
-    </div>
-
-    <div class="analysis-card">
-      <h3>Interactions & Transformations</h3>
-      <pre><code># Example: Interaction between horsepower and weight
-Auto['hp_weight'] = Auto['horsepower'] * Auto['weight']
-X_inter = sm.add_constant(Auto[['horsepower','weight','hp_weight']])
-model_inter = sm.OLS(y, X_inter).fit()
-print(model_inter.summary())</code></pre>
-      <p>Interaction between horsepower and weight is significant. Transformations like log(weight) or sqrt(horsepower) explored; some improve fit slightly.</p>
-    </div>
+    <blockquote>
+      Insight: Cars with higher horsepower tend to have lower mpg, which aligns with expectations that more powerful engines consume more fuel.
+    </blockquote>
   </div>
 
-  <div class="analysis-card">
-    <h2>Reflective Summary</h2>
-    <p>This project helped me understand how linear regression models quantify relationships between variables. I learned to interpret coefficients, check assumptions with diagnostic plots, and explore interactions and transformations to improve model fit. These skills are essential for analyzing real-world datasets responsibly and effectively.</p>
+  <!-- Multiple Linear Regression -->
+  <div class="content-card">
+    <h2>Multiple Linear Regression</h2>
+    <p>We then expanded to multiple linear regression using all numeric predictors (cylinders, displacement, horsepower, weight, acceleration, year, origin) to predict mpg. This allows us to account for the combined effects of multiple variables.</p>
+
+    <h3>Model Output & Analysis</h3>
+    <p>The results show several predictors are statistically significant, including:</p>
+    <ul>
+      <li><strong>Horsepower</strong>: negative effect on mpg</li>
+      <li><strong>Weight</strong>: heavier cars have lower mpg</li>
+      <li><strong>Year</strong>: newer cars tend to have higher mpg</li>
+    </ul>
+
+    <img src="download(1).png" alt="Multiple Linear Regression Plots" class="plot">
+    <p class="caption">Figure 2: Residual plots for the multiple regression model. These help assess the assumptions of linearity, homoscedasticity, and identify potential outliers.</p>
+
+    <blockquote>
+      Insight: While most residuals are randomly distributed, a few high-leverage points suggest unusual cars that may influence the model fit.
+    </blockquote>
   </div>
+
+  <!-- Reflections -->
+  <div class="content-card">
+    <h2>Reflections & Learnings</h2>
+    <p>This project reinforced the importance of:</p>
+    <ul>
+      <li>Exploratory data analysis before modeling</li>
+      <li>Checking model assumptions using diagnostic plots</li>
+      <li>Interpreting regression coefficients in context</li>
+      <li>Considering multiple predictors together for more accurate predictions</li>
+    </ul>
+    <p>The combination of visualizations and regression results provides a complete picture of how car characteristics relate to fuel efficiency.</p>
+  </div>
+
 </section>
 
 <div class="footer">© 2025 Aayush</div>
