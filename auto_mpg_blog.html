@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Auto MPG Classification Assignment</title>
+<style>
+body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }
+h1 { color: #2c3e50; }
+h2 { color: #34495e; }
+code { background-color: #f4f4f4; padding: 2px 4px; border-radius: 4px; }
+pre { background-color: #f4f4f4; padding: 10px; border-radius: 6px; overflow-x: auto; }
+img { max-width: 600px; display: block; margin: 20px 0; }
+</style>
+</head>
+<body>
+
+<h1>Auto MPG Classification Assignment</h1>
+<p>This blog post explores the <b>Auto dataset</b> and creates a binary variable <code>mpg01</code> to classify cars into high and low gas mileage. Visualizations are used to inspect which features are most predictive.</p>
+
+<h2>Part (a) - Creating the Binary Variable <code>mpg01</code></h2>
+<p>We calculate the median MPG and assign <code>1</code> to cars with MPG above the median and <code>0</code> otherwise.</p>
+
+<pre><code>import pandas as pd
+import numpy as np
+
+# Load Auto dataset
+url = "https://raw.githubusercontent.com/selva86/datasets/master/Auto.csv"
+Auto = pd.read_csv(url)
+
+# Create mpg01
+median_mpg = Auto['mpg'].median()
+Auto['mpg01'] = (Auto['mpg'] &gt; median_mpg).astype(int)
+
+Auto.head()
+</code></pre>
+
+<h2>Part (b) - Data Exploration</h2>
+<p>We use boxplots and scatterplots to investigate the association between <code>mpg01</code> and the other features. Features most associated with <code>mpg01</code> are cylinders, displacement, horsepower, and weight.</p>
+
+<pre><code>import matplotlib.pyplot as plt
+import seaborn as sns
+
+features = ['cylinders','displacement','horsepower','weight','acceleration','year','origin']
+
+for f in features:
+    plt.figure(figsize=(6,4))
+    sns.boxplot(x='mpg01', y=f, data=Auto)
+    plt.title(f'{f} vs mpg01')
+    plt.savefig(f'plot_{f}.png', bbox_inches='tight')
+    plt.close()
+
+# Pairplot for strongest predictors
+sns.pairplot(Auto, vars=['displacement','horsepower','weight'], hue='mpg01')
+plt.savefig('pairplot.png', bbox_inches='tight')
+plt.close()
+</code></pre>
+
+<h3>Boxplots</h3>
+<p>Below are the boxplots showing the distribution of each feature for low vs high MPG cars.</p>
+<img src="plot_cylinders.png" alt="Cylinders vs mpg01">
+<img src="plot_displacement.png" alt="Displacement vs mpg01">
+<img src="plot_horsepower.png" alt="Horsepower vs mpg01">
+<img src="plot_weight.png" alt="Weight vs mpg01">
+<img src="plot_acceleration.png" alt="Acceleration vs mpg01">
+<img src="plot_year.png" alt="Year vs mpg01">
+<img src="plot_origin.png" alt="Origin vs mpg01">
+
+<h3>Scatterplot Matrix</h3>
+<p>Scatterplot matrix of displacement, horsepower, and weight grouped by <code>mpg01</code>:</p>
+<img src="pairplot.png" alt="Scatterplot matrix">
+
+</body>
+</html>
