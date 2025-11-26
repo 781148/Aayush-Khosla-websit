@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aayush | Linear Regression Blog</title>
+<title>Aayush | Auto MPG Classification Blog</title>
 <style>
   body { margin: 0; font-family: Arial, sans-serif; background: #fafafa; color: #222; }
   .navbar { display: flex; justify-content: flex-start; gap: 32px; background-color: #333; padding: 14px 32px; position: fixed; top: 0; width: 100%; z-index: 100; }
@@ -21,6 +21,8 @@
     border-radius: 8px;
     border: 1px solid #ccc;
   }
+
+  img { max-width: 600px; display: block; margin: 20px 0; }
 </style>
 </head>
 
@@ -33,91 +35,78 @@
 </div>
 
 <section>
-  <h1>Linear Regression Tutorial</h1>
+  <h1>Auto MPG Classification Assignment</h1>
   <p>
-    In this post, I worked through a Python linear regression tutorial and recorded my notes along with answers to the questions from the notebook.
+    In this blog post, I explored the Auto dataset and created a binary variable <code>mpg01</code> to classify cars into high and low gas mileage. We use visualizations to determine which features are most predictive.
   </p>
 
-  <h2>Introduction</h2>
+  <h2>Part (a) - Creating <code>mpg01</code></h2>
   <p>
-    Linear regression is a method to fit a straight line to a dataset and predict one variable from another.  
-    In this tutorial, I explored ordinary least squares regression, residuals, and total least squares regression.
+    We calculate the median MPG and assign <code>1</code> to cars with MPG above the median, <code>0</code> otherwise.
+  </p>
+  <pre><code>import pandas as pd
+import numpy as np
+
+# Load dataset
+url = "https://raw.githubusercontent.com/selva86/datasets/master/Auto.csv"
+Auto = pd.read_csv(url)
+
+# Create binary variable
+median_mpg = Auto['mpg'].median()
+Auto['mpg01'] = (Auto['mpg'] &gt; median_mpg).astype(int)
+
+Auto.head()</code></pre>
+
+  <h2>Part (b) - Data Exploration</h2>
+  <p>
+    We use boxplots and scatterplots to investigate the association between <code>mpg01</code> and other features. Features most associated with <code>mpg01</code> are cylinders, displacement, horsepower, and weight.
   </p>
 
-  <h2>Loading the Data</h2>
-  <pre><code>import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
+  <pre><code>import matplotlib.pyplot as plt
+import seaborn as sns
 
-# Read the dataset
-anscombe_i = pd.read_csv('anscombe_i.csv')
-anscombe_i.head()</code></pre>
+features = ['cylinders','displacement','horsepower','weight','acceleration','year','origin']
 
-  <h2>Plotting the Data</h2>
-  <pre><code>plt.scatter(anscombe_i.x, anscombe_i.y, color='black')
-plt.xlabel("X")
-plt.ylabel("Y")
-plt.title("Scatter Plot of Dataset")
-plt.show()</code></pre>
+# Boxplots
+for f in features:
+    plt.figure(figsize=(6,4))
+    sns.boxplot(x='mpg01', y=f, data=Auto)
+    plt.title(f'{f} vs mpg01')
+    plt.savefig(f'plot_{f}.png', bbox_inches='tight')
+    plt.close()
 
-  <h2>Fitting a Linear Regression Line</h2>
-  <pre><code>from sklearn.linear_model import LinearRegression
+# Pairplot for strongest predictors
+sns.pairplot(Auto, vars=['displacement','horsepower','weight'], hue='mpg01')
+plt.savefig('pairplot.png', bbox_inches='tight')
+plt.close()</code></pre>
 
-X = anscombe_i.x.values.reshape(-1,1)
-y = anscombe_i.y.values.reshape(-1,1)
+  <h3>Boxplots</h3>
+  <p>Distribution of each feature for low vs high MPG cars:</p>
+  <img src="plot_cylinders.png" alt="Cylinders vs mpg01">
+  <img src="plot_displacement.png" alt="Displacement vs mpg01">
+  <img src="plot_horsepower.png" alt="Horsepower vs mpg01">
+  <img src="plot_weight.png" alt="Weight vs mpg01">
+  <img src="plot_acceleration.png" alt="Acceleration vs mpg01">
+  <img src="plot_year.png" alt="Year vs mpg01">
+  <img src="plot_origin.png" alt="Origin vs mpg01">
 
-model = LinearRegression()
-model.fit(X, y)
+  <h3>Scatterplot Matrix</h3>
+  <p>Scatterplot matrix of displacement, horsepower, and weight grouped by <code>mpg01</code>:</p>
+  <img src="pairplot.png" alt="Scatterplot matrix">
 
-print("Slope (m):", model.coef_[0])
-print("Intercept (b):", model.intercept_)
-
-plt.scatter(X, y, color='black')
-plt.plot(X, model.predict(X), color='green')
-plt.show()</code></pre>
-
-  <h2>Residuals</h2>
-  <pre><code>residuals = y - model.predict(X)
-plt.scatter(X, residuals)
-plt.xlabel("X")
-plt.ylabel("Residuals")
-plt.title("Residual Plot")
-plt.show()</code></pre>
-
-  <h2>Notes & Answers</h2>
-
-  <h3>1. What is `m` in y = mx + b?</h3>
+  <h2>Next Steps</h2>
   <p>
-    `m` is the slope of the line, showing how much y changes for a unit change in x.
-  </p>
-
-  <h3>2. What is the R squared?</h3>
-  <p>
-    R squared shows how well the line fits the data. Closer to 1 means the line explains most of the variance in y.
-  </p>
-
-  <h3>3. What is the Adj. R squared?</h3>
-  <p>
-    Adjusted R squared accounts for number of predictors and prevents artificial inflation when more variables are added.
-  </p>
-
-  <h3>4. What is the P value?</h3>
-  <p>
-    P value tells if the slope is statistically significant. A small value (≤ 0.05) means the slope is meaningful.
-  </p>
-
-  <h3>5. What are the 95% confidence intervals?</h3>
-  <p>
-    The 95% confidence intervals give a range where the true slope and intercept are expected to fall 95% of the time.
+    These exploratory analyses help determine which variables will be useful for predictive models such as logistic regression, LDA, and QDA. In the next part, I will split the data into training and test sets and perform the classification models.
   </p>
 
   <h2>View the Full Notebook</h2>
   <p>
     You can check out the full Python notebook here: 
-    <a href="https://github.com/781148/Aayush-Khosla-websit/blob/main/linear-regression-tutorial.ipynb" target="_blank">
-      Linear Regression Notebook on GitHub
+    <a href="https://github.com/yourusername/your-repo/blob/main/Auto_MPG_Classification.ipynb" target="_blank">
+      Auto MPG Classification Notebook on GitHub
     </a>
   </p>
+
 </section>
 
 <div class="footer">© 2025 Aayush</div>
