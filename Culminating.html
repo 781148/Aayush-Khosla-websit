@@ -1,0 +1,247 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2D Platform Tag Game | Aayush</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f0f2f5;
+    color:#222;
+    line-height:1.6;
+}
+
+.navbar{
+    display:flex;
+    gap:32px;
+    background:#333;
+    padding:14px 32px;
+    position:fixed;
+    top:0;
+    width:100%;
+    z-index:100;
+}
+
+.navbar a{
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+    padding:8px 16px;
+    border-radius:4px;
+}
+
+.navbar a:hover{
+    background:#555;
+}
+
+section{
+    padding:120px 32px 80px;
+    max-width:1000px;
+    margin:auto;
+}
+
+h1{
+    text-align:center;
+    color:#333;
+}
+
+h2{
+    color:#444;
+    margin-top:30px;
+}
+
+.project-card{
+    background:white;
+    border-radius:12px;
+    padding:30px;
+    box-shadow:0 6px 20px rgba(0,0,0,0.1);
+}
+
+.project-image{
+    width:100%;
+    border-radius:12px;
+}
+
+video{
+    width:100%;
+    max-width:700px;
+    display:block;
+    margin:auto;
+    border-radius:12px;
+}
+
+.footer{
+    text-align:center;
+    padding:40px;
+    border-top:1px solid #ddd;
+    margin-top:40px;
+}
+
+.collapsible{
+    background:#333;
+    color:white;
+    cursor:pointer;
+    padding:12px 20px;
+    border:none;
+    border-radius:6px;
+    width:100%;
+    text-align:left;
+    font-size:16px;
+}
+
+.collapsible:hover{
+    background:#555;
+}
+
+.content{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .3s ease-out;
+    background:#272822;
+    border-radius:0 0 12px 12px;
+}
+
+.content pre{
+    color:#f8f8f2;
+    padding:20px;
+    overflow-x:auto;
+    white-space:pre-wrap;
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <a href="index.html">Home</a>
+    <a href="projects.html">Projects</a>
+    <a href="about.html">About Me</a>
+</div>
+
+<section>
+
+<h1>2D Platform Tag Game</h1>
+
+<div class="project-card">
+
+<h2>Project Overview</h2>
+
+<p>
+This project is a two-player platformer tag game developed in Processing (Java).
+Players move across multiple platforms while attempting to tag each other before
+the round timer expires. The game includes gravity, jumping mechanics, platform
+collision detection, score tracking, and a menu system.
+</p>
+
+<h2>Project Features</h2>
+
+<ul>
+<li>Two-player local multiplayer gameplay</li>
+<li>Platform collision and gravity physics</li>
+<li>Jumping and movement controls</li>
+<li>30-second round timer</li>
+<li>Tag detection system</li>
+<li>Score tracking between rounds</li>
+<li>Main menu and game over screens</li>
+<li>Custom background and character sprites</li>
+</ul>
+
+<h2>Controls</h2>
+
+<ul>
+<li><strong>Player 1 (Red):</strong> W, A, D</li>
+<li><strong>Player 2 (Pink):</strong> Arrow Keys</li>
+</ul>
+
+<h2>Project Explanation</h2>
+
+<p>
+The objective of the game is to avoid being "It" when the timer reaches zero.
+At the beginning of each round one player is randomly selected as the chaser.
+Players can move across a multi-level platform map while attempting to escape or
+tag the opposing player.
+</p>
+
+<p>
+The game uses arrays to store platform locations, custom functions to organize
+different game systems, and collision detection to determine when players land
+on platforms. A timer system controls the length of each round and automatically
+determines the winner when time expires.
+</p>
+
+<h2>Game Screenshot</h2>
+
+<img class="project-image" src="platform-tag-screenshot.png" alt="Platform Tag Game">
+
+<h2>Gameplay Video</h2>
+
+<video controls>
+    <source src="platform-tag-demo.mp4" type="video/mp4">
+</video>
+
+<h2>Programming Concepts Used</h2>
+
+<ul>
+<li>Variables and Data Tracking</li>
+<li>Selection Structures (if statements)</li>
+<li>Repetition Structures (for loops)</li>
+<li>Arrays and Data Structures</li>
+<li>Custom Functions</li>
+<li>Collision Detection</li>
+<li>Object Position Tracking</li>
+<li>Timer Systems</li>
+</ul>
+
+<button class="collapsible">View Game Code</button>
+
+<div class="content">
+<pre>
+
+// Insert your Processing code here
+
+void setup() {
+    size(1000, 562);
+}
+
+void draw() {
+    // Main game loop
+}
+
+</pre>
+</div>
+
+</div>
+
+</section>
+
+<div class="footer">
+© 2026 Aayush
+</div>
+
+<script>
+const coll = document.getElementsByClassName("collapsible");
+
+for(let i = 0; i < coll.length; i++){
+    coll[i].addEventListener("click", function(){
+
+        this.classList.toggle("active");
+
+        const content = this.nextElementSibling;
+
+        if(content.style.maxHeight){
+            content.style.maxHeight = null;
+        } else {
+            content.style.maxHeight =
+            content.scrollHeight + "px";
+        }
+    });
+}
+</script>
+
+</body>
+</html>
+```
