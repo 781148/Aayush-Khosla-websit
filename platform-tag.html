@@ -1,247 +1,196 @@
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>2D Platform Tag Game | Aayush</title>
+<h2>Learning Log Reflections</h2>
 
-<style>
-body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:#f0f2f5;
-    color:#222;
-    line-height:1.6;
-}
-
-.navbar{
-    display:flex;
-    gap:32px;
-    background:#333;
-    padding:14px 32px;
-    position:fixed;
-    top:0;
-    width:100%;
-    z-index:100;
-}
-
-.navbar a{
-    color:white;
-    text-decoration:none;
-    font-weight:bold;
-    padding:8px 16px;
-    border-radius:4px;
-}
-
-.navbar a:hover{
-    background:#555;
-}
-
-section{
-    padding:120px 32px 80px;
-    max-width:1000px;
-    margin:auto;
-}
-
-h1{
-    text-align:center;
-    color:#333;
-}
-
-h2{
-    color:#444;
-    margin-top:30px;
-}
-
-.project-card{
-    background:white;
-    border-radius:12px;
-    padding:30px;
-    box-shadow:0 6px 20px rgba(0,0,0,0.1);
-}
-
-.project-image{
-    width:100%;
-    border-radius:12px;
-}
-
-video{
-    width:100%;
-    max-width:700px;
-    display:block;
-    margin:auto;
-    border-radius:12px;
-}
-
-.footer{
-    text-align:center;
-    padding:40px;
-    border-top:1px solid #ddd;
-    margin-top:40px;
-}
-
-.collapsible{
-    background:#333;
-    color:white;
-    cursor:pointer;
-    padding:12px 20px;
-    border:none;
-    border-radius:6px;
-    width:100%;
-    text-align:left;
-    font-size:16px;
-}
-
-.collapsible:hover{
-    background:#555;
-}
-
-.content{
-    max-height:0;
-    overflow:hidden;
-    transition:max-height .3s ease-out;
-    background:#272822;
-    border-radius:0 0 12px 12px;
-}
-
-.content pre{
-    color:#f8f8f2;
-    padding:20px;
-    overflow-x:auto;
-    white-space:pre-wrap;
-}
-</style>
-</head>
-
-<body>
-
-<div class="navbar">
-    <a href="index.html">Home</a>
-    <a href="projects.html">Projects</a>
-    <a href="about.html">About Me</a>
-</div>
-
-<section>
-
-<h1>2D Platform Tag Game</h1>
-
-<div class="project-card">
-
-<h2>Project Overview</h2>
-
+<h3>Learning Log #1 – Variables & Data Tracking</h3>
 <p>
-This project is a two-player platformer tag game developed in Processing (Java).
-Players move across multiple platforms while attempting to tag each other before
-the round timer expires. The game includes gravity, jumping mechanics, platform
-collision detection, score tracking, and a menu system.
+One of the main concepts I used in my game is variables for storing and tracking game data. Different variables were needed because the game tracks player movement, physics, scores, timers, game states, and user input.
 </p>
 
-<h2>Project Features</h2>
-
-<ul>
-<li>Two-player local multiplayer gameplay</li>
-<li>Platform collision and gravity physics</li>
-<li>Jumping and movement controls</li>
-<li>30-second round timer</li>
-<li>Tag detection system</li>
-<li>Score tracking between rounds</li>
-<li>Main menu and game over screens</li>
-<li>Custom background and character sprites</li>
-</ul>
-
-<h2>Controls</h2>
-
-<ul>
-<li><strong>Player 1 (Red):</strong> W, A, D</li>
-<li><strong>Player 2 (Pink):</strong> Arrow Keys</li>
-</ul>
-
-<h2>Project Explanation</h2>
-
-<p>
-The objective of the game is to avoid being "It" when the timer reaches zero.
-At the beginning of each round one player is randomly selected as the chaser.
-Players can move across a multi-level platform map while attempting to escape or
-tag the opposing player.
-</p>
-
-<p>
-The game uses arrays to store platform locations, custom functions to organize
-different game systems, and collision detection to determine when players land
-on platforms. A timer system controls the length of each round and automatically
-determines the winner when time expires.
-</p>
-
-<h2>Game Screenshot</h2>
-
-<img class="project-image" src="platform-tag-screenshot.png" alt="Platform Tag Game">
-
-<h2>Gameplay Video</h2>
-
-<video controls>
-    <source src="platform-tag-demo.mp4" type="video/mp4">
-</video>
-
-<h2>Programming Concepts Used</h2>
-
-<ul>
-<li>Variables and Data Tracking</li>
-<li>Selection Structures (if statements)</li>
-<li>Repetition Structures (for loops)</li>
-<li>Arrays and Data Structures</li>
-<li>Custom Functions</li>
-<li>Collision Detection</li>
-<li>Object Position Tracking</li>
-<li>Timer Systems</li>
-</ul>
-
-<button class="collapsible">View Game Code</button>
-
-<div class="content">
 <pre>
+float p1X, p1Y;
+float p1Vy = 0;
+boolean p1OnGround = false;
 
-// Insert your Processing code here
+int p1Score = 0;
+int p2Score = 0;
 
-void setup() {
-    size(1000, 562);
-}
-
-void draw() {
-    // Main game loop
-}
-
+boolean isP1It = true;
+int gameState = 0;
 </pre>
-</div>
 
-</div>
+<p>
+I used float variables for player positions and velocity because movement and gravity often require decimal values for smooth motion. Integer variables were used for scores, timers, and game states because they represent whole numbers. Boolean variables were used for true/false conditions such as whether a player is on the ground or whether Player 1 is currently "It."
+</p>
 
-</section>
+<p>
+The variables are used throughout the game. For example, p1X and p1Y store the player's position on the screen, p1Vy stores vertical speed for jumping and gravity, and p1Score keeps track of points earned during the match.
+</p>
 
-<div class="footer">
-© 2026 Aayush
-</div>
+<p>
+I chose this approach because each variable has a specific purpose and data type that matches the information being stored. Using the correct data type improves organization and efficiency.
+</p>
 
-<script>
-const coll = document.getElementsByClassName("collapsible");
+<p>
+One challenge I encountered was keeping track of many different variables while debugging player movement. To solve this, I grouped related variables together and added comments to make the code easier to read and maintain.
+</p>
 
-for(let i = 0; i < coll.length; i++){
-    coll[i].addEventListener("click", function(){
+<hr>
 
-        this.classList.toggle("active");
+<h3>Learning Log #2 – Selection Structure</h3>
+<p>
+I used selection structures throughout my game to make decisions based on player actions and game conditions.
+</p>
 
-        const content = this.nextElementSibling;
-
-        if(content.style.maxHeight){
-            content.style.maxHeight = null;
-        } else {
-            content.style.maxHeight =
-            content.scrollHeight + "px";
-        }
-    });
+<pre>
+if (p1Jump && p1OnGround) {
+    p1Vy = jumpForce;
+    p1OnGround = false;
 }
-</script>
+</pre>
 
-</body>
-</html>
-```
+<p>
+This selection structure is used in the player movement system. The game checks two conditions before allowing a jump: the jump key must be pressed and the player must be standing on the ground. If both conditions are true, the player jumps.
+</p>
+
+<p>
+Another example is the game timer:
+</p>
+
+<pre>
+if (seconds >= 0) {
+    timeRemaining = seconds;
+} else {
+    gameState = 2;
+}
+</pre>
+
+<p>
+This decision determines whether the round continues or ends when time expires.
+</p>
+
+<p>
+I implemented these selection structures because games constantly need to make decisions based on changing conditions. Without these checks, players could jump infinitely or the game would not know when to end a round.
+</p>
+
+<p>
+One challenge I encountered was preventing players from jumping repeatedly while already in the air. Initially, players could sometimes trigger multiple jumps. I fixed this by checking the p1OnGround and p2OnGround variables before allowing a jump.
+</p>
+
+<hr>
+
+<h3>Learning Log #3 – Repetition Structure</h3>
+<p>
+One repetition structure I implemented in my game is a for loop that checks platform collisions for the players.
+</p>
+
+<pre>
+for (int i = 0; i < platX.length; i++) {
+   float platLeftEdge  = platX[i] - platW[i]/2;
+   float platRightEdge = platX[i] + platW[i]/2;
+   float platTopEdge   = platY[i] - platformHeight/2;
+
+   if (p1X > platLeftEdge && p1X < platRightEdge) {
+      float playerFeetY = p1Y + playerSize/2;
+
+      if (p1Vy >= 0 &&
+          playerFeetY >= platTopEdge &&
+          playerFeetY <= platTopEdge + landingThresholdY) {
+
+         p1Y = platTopEdge - playerSize/2;
+         p1Vy = 0;
+         p1OnGround = true;
+      }
+   }
+}
+</pre>
+
+<p>
+I used this loop to check every platform in the game. Instead of writing separate collision code for each platform, the loop automatically checks all platforms stored in the arrays.
+</p>
+
+<p>
+The loop starts at index 0 and continues until it reaches the last platform. During each iteration, the code calculates the platform boundaries and determines whether the player has landed on that platform.
+</p>
+
+<p>
+I chose this method because it reduces duplicated code and makes adding new platforms much easier. I only need to add new values to the arrays rather than writing additional collision code.
+</p>
+
+<p>
+One challenge I encountered was players occasionally falling through platforms. To fix this, I added a landing threshold variable that gives the collision system a small detection range. This made platform landings more reliable.
+</p>
+
+<hr>
+
+<h3>Learning Log #4 – Arrays & Data Structures</h3>
+<p>
+I used arrays to store information about all of the platforms in my game.
+</p>
+
+<pre>
+float[] platX = {150, 350, 550, 750, 900};
+float[] platY = {450, 460, 440, 470, 430};
+float[] platW = {140, 120, 150, 110, 130};
+</pre>
+
+<p>
+These arrays store the X positions, Y positions, and widths of every platform. Each index represents a single platform.
+</p>
+
+<p>
+I access the information using a loop:
+</p>
+
+<pre>
+for (int i = 0; i < platX.length; i++) {
+    rect(platX[i], platY[i], platW[i], platformHeight);
+}
+</pre>
+
+<p>
+This loop draws every platform in the game using the values stored in the arrays.
+</p>
+
+<p>
+I chose arrays because they allow me to store multiple platforms efficiently. Without arrays, I would need separate variables for every platform, making the code much longer and harder to manage.
+</p>
+
+<p>
+One challenge was making sure that all platform arrays had the same number of elements. If one array had fewer values than another, the game could produce errors. I solved this by ensuring each platform's X position, Y position, and width were stored at the same index across all arrays.
+</p>
+
+<hr>
+
+<h3>Learning Log #5 – Custom Functions & Error Checking</h3>
+<p>
+I created several custom functions to organize my code and make the program easier to manage.
+</p>
+
+<pre>
+void timer() {
+  int seconds = 30 - ((frameCount - startFrame) / 60);
+}
+</pre>
+
+<pre>
+void checkTagContacts() {
+  if (dist(p1X, p1Y, p2X, p2Y) < playerSize) {
+    isP1It = !isP1It;
+  }
+}
+</pre>
+
+<p>
+The timer() function controls the countdown timer and determines when the round ends. The checkTagContacts() function checks whether the two players are touching and swaps who is "It."
+</p>
+
+<p>
+I chose to place these tasks into separate functions because it makes the code easier to read and maintain.
+</p>
+
+<p>
+I also implemented restrictions such as preventing players from moving off screen and preventing jumping while already in the air.
+</p>
+
+<p>
+One challenge I encountered was organizing the growing amount of code. I solved this by splitting logic into separate functions.
+</p>
