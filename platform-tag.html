@@ -1,10 +1,142 @@
-<h2>Learning Log Reflections</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Platform Tag Game Learning Logs | Aayush</title>
 
-<h3>Learning Log #1 – Variables & Data Tracking</h3>
-<p>
-One of the main concepts I used in my game is variables for storing and tracking game data. Different variables were needed because the game tracks player movement, physics, scores, timers, game states, and user input.
-</p>
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f0f2f5;
+    color: #222;
+    line-height: 1.6;
+  }
 
+  .navbar {
+    display: flex;
+    justify-content: flex-start;
+    gap: 32px;
+    background-color: #333;
+    padding: 14px 32px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+  }
+
+  .navbar a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: background 0.3s;
+  }
+
+  .navbar a:hover {
+    background-color: #555;
+  }
+
+  section {
+    padding: 120px 32px 80px;
+    max-width: 1100px;
+    margin: auto;
+  }
+
+  h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 40px;
+  }
+
+  .project-card {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    margin-bottom: 35px;
+  }
+
+  h2 {
+    margin-top: 0;
+    color: #333;
+  }
+
+  pre {
+    background: #272822;
+    color: #f8f8f2;
+    padding: 20px;
+    overflow-x: auto;
+    border-radius: 12px;
+    font-size: 14px;
+    white-space: pre-wrap;
+  }
+
+  .collapsible {
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    text-align: left;
+    width: 100%;
+    font-size: 16px;
+    margin-top: 20px;
+  }
+
+  .collapsible:hover,
+  .active {
+    background-color: #555;
+  }
+
+  .content {
+    padding: 0 20px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    background-color: #272822;
+    border-radius: 0 0 12px 12px;
+  }
+
+  .content pre {
+    margin: 20px 0;
+    background: none;
+  }
+
+  .footer {
+    text-align: center;
+    padding: 40px;
+    color: #555;
+    border-top: 1px solid #ddd;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+  <a href="index.html">Home</a>
+  <a href="projects.html">Projects</a>
+  <a href="about.html">About Me</a>
+</div>
+
+<section>
+
+<h1>Platform Tag Game Learning Logs</h1>
+
+<div class="project-card">
+  <h2>Learning Log #1 – Variables & Data Tracking</h2>
+
+  <p>
+One of the main concepts I used in my game were variables for storing different types of data. It was needed because the game needs to track movement, physics scores and timers.
+  </p>
+
+  <button class="collapsible">View Code</button>
+  <div class="content">
 <pre>
 float p1X, p1Y;
 float p1Vy = 0;
@@ -16,72 +148,52 @@ int p2Score = 0;
 boolean isP1It = true;
 int gameState = 0;
 </pre>
+  </div>
 
-<p>
-I used float variables for player positions and velocity because movement and gravity often require decimal values for smooth motion. Integer variables were used for scores, timers, and game states because they represent whole numbers. Boolean variables were used for true/false conditions such as whether a player is on the ground or whether Player 1 is currently "It."
-</p>
+  <p>
+I used the float variables for the players positions and velocities because gravity often requires decimals values. Integer variables were used for timers, and game state since they are whole umbers. Finally boolean variables were used for true/false conditions lik weather or not a player is on the ground. The variables are used throughout the game such as p1X to store the players position on the screen. I chose this approach since each variable has a purpose and using the correct data types improves efficiency. Once challenge I faced was keeping track of the variables while debugging the players movement. I fixed this by grouping variables that were related.
+  </p>
+</div>
 
-<p>
-The variables are used throughout the game. For example, p1X and p1Y store the player's position on the screen, p1Vy stores vertical speed for jumping and gravity, and p1Score keeps track of points earned during the match.
-</p>
+<div class="project-card">
+  <h2>Learning Log #2 – Selection Structure</h2>
 
-<p>
-I chose this approach because each variable has a specific purpose and data type that matches the information being stored. Using the correct data type improves organization and efficiency.
-</p>
+  <p>
+I used election structures throughout my game to make decisions based on player action or conditions.
+  </p>
 
-<p>
-One challenge I encountered was keeping track of many different variables while debugging player movement. To solve this, I grouped related variables together and added comments to make the code easier to read and maintain.
-</p>
-
-<hr>
-
-<h3>Learning Log #2 – Selection Structure</h3>
-<p>
-I used selection structures throughout my game to make decisions based on player actions and game conditions.
-</p>
-
+  <button class="collapsible">View Code</button>
+  <div class="content">
 <pre>
 if (p1Jump && p1OnGround) {
     p1Vy = jumpForce;
     p1OnGround = false;
 }
-</pre>
 
-<p>
-This selection structure is used in the player movement system. The game checks two conditions before allowing a jump: the jump key must be pressed and the player must be standing on the ground. If both conditions are true, the player jumps.
-</p>
-
-<p>
-Another example is the game timer:
-</p>
-
-<pre>
 if (seconds >= 0) {
     timeRemaining = seconds;
 } else {
     gameState = 2;
 }
 </pre>
+  </div>
 
-<p>
-This decision determines whether the round continues or ends when time expires.
-</p>
+  <p>
+This structure is used in player movement and checks two condition before allowing the player to jump. If both conditions are true then p1 is able to jump.
 
-<p>
-I implemented these selection structures because games constantly need to make decisions based on changing conditions. Without these checks, players could jump infinitely or the game would not know when to end a round.
-</p>
+I implemented these selection structures because games constantly need to make decisions based on changing conditions. Without these checks, players could jump infinitely or the game would not know when to end a round. One challenge I encountered was preventing players from jumping repeatedly while already in the air. Initially, players could sometimes trigger multiple jumps. I fixed this by checking the p1OnGround and p2OnGround variables before allowing a jump.
+  </p>
+</div>
 
-<p>
-One challenge I encountered was preventing players from jumping repeatedly while already in the air. Initially, players could sometimes trigger multiple jumps. I fixed this by checking the p1OnGround and p2OnGround variables before allowing a jump.
-</p>
+<div class="project-card">
+  <h2>Learning Log #3 – Repetition Structure</h2>
 
-<hr>
-
-<h3>Learning Log #3 – Repetition Structure</h3>
-<p>
+  <p>
 One repetition structure I implemented in my game is a for loop that checks platform collisions for the players.
-</p>
+  </p>
 
+  <button class="collapsible">View Code</button>
+  <div class="content">
 <pre>
 for (int i = 0; i < platX.length; i++) {
    float platLeftEdge  = platX[i] - platW[i]/2;
@@ -102,95 +214,101 @@ for (int i = 0; i < platX.length; i++) {
    }
 }
 </pre>
+  </div>
 
-<p>
-I used this loop to check every platform in the game. Instead of writing separate collision code for each platform, the loop automatically checks all platforms stored in the arrays.
-</p>
+  <p>
+I used this loop to check each platform in the game. Instead of writing collison code for each platform a loop is able to go through all platforms in the stored array. It starts at index 0 and loops through and calculates if the player is on top of the platforms.One challenge I encountered was players occasionally falling through platforms. To fix this, I added a landing threshold variable that gives the collision system a small detection range. This made platform landings more reliable.
+  </p>
+</div>
 
-<p>
-The loop starts at index 0 and continues until it reaches the last platform. During each iteration, the code calculates the platform boundaries and determines whether the player has landed on that platform.
-</p>
+<div class="project-card">
+  <h2>Learning Log #4 – Arrays & Data Structures</h2>
 
-<p>
-I chose this method because it reduces duplicated code and makes adding new platforms much easier. I only need to add new values to the arrays rather than writing additional collision code.
-</p>
-
-<p>
-One challenge I encountered was players occasionally falling through platforms. To fix this, I added a landing threshold variable that gives the collision system a small detection range. This made platform landings more reliable.
-</p>
-
-<hr>
-
-<h3>Learning Log #4 – Arrays & Data Structures</h3>
-<p>
+  <p>
 I used arrays to store information about all of the platforms in my game.
-</p>
+  </p>
 
+  <button class="collapsible">View Code</button>
+  <div class="content">
 <pre>
 float[] platX = {150, 350, 550, 750, 900};
 float[] platY = {450, 460, 440, 470, 430};
 float[] platW = {140, 120, 150, 110, 130};
-</pre>
 
-<p>
-These arrays store the X positions, Y positions, and widths of every platform. Each index represents a single platform.
-</p>
-
-<p>
-I access the information using a loop:
-</p>
-
-<pre>
 for (int i = 0; i < platX.length; i++) {
     rect(platX[i], platY[i], platW[i], platformHeight);
 }
 </pre>
+  </div>
 
-<p>
+  <p>
+These arrays store the X positions, Y positions, and widths of every platform. Each index represents a single platform.
+
+I access the information using a loop.
+
 This loop draws every platform in the game using the values stored in the arrays.
-</p>
 
-<p>
 I chose arrays because they allow me to store multiple platforms efficiently. Without arrays, I would need separate variables for every platform, making the code much longer and harder to manage.
-</p>
 
-<p>
 One challenge was making sure that all platform arrays had the same number of elements. If one array had fewer values than another, the game could produce errors. I solved this by ensuring each platform's X position, Y position, and width were stored at the same index across all arrays.
-</p>
+  </p>
+</div>
 
-<hr>
+<div class="project-card">
+  <h2>Learning Log #5 – Custom Functions & Error Checking</h2>
 
-<h3>Learning Log #5 – Custom Functions & Error Checking</h3>
-<p>
+  <p>
 I created several custom functions to organize my code and make the program easier to manage.
-</p>
+  </p>
 
+  <button class="collapsible">View Code</button>
+  <div class="content">
 <pre>
 void timer() {
   int seconds = 30 - ((frameCount - startFrame) / 60);
 }
-</pre>
 
-<pre>
 void checkTagContacts() {
   if (dist(p1X, p1Y, p2X, p2Y) < playerSize) {
     isP1It = !isP1It;
   }
 }
 </pre>
+  </div>
 
-<p>
+  <p>
 The timer() function controls the countdown timer and determines when the round ends. The checkTagContacts() function checks whether the two players are touching and swaps who is "It."
-</p>
 
-<p>
 I chose to place these tasks into separate functions because it makes the code easier to read and maintain.
-</p>
 
-<p>
 I also implemented restrictions such as preventing players from moving off screen and preventing jumping while already in the air.
-</p>
 
-<p>
 One challenge I encountered was organizing the growing amount of code. I solved this by splitting logic into separate functions.
-</p>
+  </p>
+</div>
+
+</section>
+
+<div class="footer">
+  © 2026 Aayush
+</div>
+
+<script>
+const coll = document.getElementsByClassName("collapsible");
+
+for (let i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    const content = this.nextElementSibling;
+
+    if (content.style.maxHeight) {
+      content.style.maxHeight = null;
+    } else {
+      content.style.maxHeight = content.scrollHeight + "px";
+    }
+  });
+}
+</script>
+
+</body>
+</html>
